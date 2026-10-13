@@ -1,0 +1,200 @@
+{
+  "status": "synthetic-software-test-only",
+  "physical_evidence": false,
+  "known_target_parameters": {
+    "width": 1,
+    "length": 2,
+    "height": 1.2,
+    "nose_drop": 0.3,
+    "shoulder_drop": 0.15,
+    "taper": 0.1
+  },
+  "formula": "x=u*(1-.1*v*v); y=1.2-.3*v*v-.15*u*u; z=2*(.5-v)",
+  "observations": [
+    {
+      "id": "landmark-0",
+      "reference_id": "synthetic-target",
+      "feature": "known analytic fixture",
+      "component_id": "body",
+      "parameter_ids": [
+        "height",
+        "nose_drop"
+      ],
+      "uv": [
+        0,
+        0
+      ],
+      "target": [
+        0.0,
+        1.2
+      ],
+      "projection": {
+        "matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "offset": [
+          0,
+          0
+        ]
+      },
+      "role": "calibration"
+    },
+    {
+      "id": "landmark-1",
+      "reference_id": "synthetic-target",
+      "feature": "known analytic fixture",
+      "component_id": "body",
+      "parameter_ids": [
+        "height",
+        "nose_drop"
+      ],
+      "uv": [
+        0,
+        0.5
+      ],
+      "target": [
+        0.0,
+        1.125
+      ],
+      "projection": {
+        "matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "offset": [
+          0,
+          0
+        ]
+      },
+      "role": "calibration"
+    },
+    {
+      "id": "landmark-2",
+      "reference_id": "synthetic-target",
+      "feature": "known analytic fixture",
+      "component_id": "body",
+      "parameter_ids": [
+        "height",
+        "nose_drop"
+      ],
+      "uv": [
+        0,
+        1
+      ],
+      "target": [
+        0.0,
+        0.9
+      ],
+      "projection": {
+        "matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "offset": [
+          0,
+          0
+        ]
+      },
+      "role": "calibration"
+    },
+    {
+      "id": "landmark-3",
+      "reference_id": "synthetic-target",
+      "feature": "known analytic fixture",
+      "component_id": "body",
+      "parameter_ids": [
+        "height",
+        "nose_drop"
+      ],
+      "uv": [
+        0.5,
+        0.5
+      ],
+      "target": [
+        0.4875,
+        1.0875
+      ],
+      "projection": {
+        "matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "offset": [
+          0,
+          0
+        ]
+      },
+      "role": "calibration"
+    },
+    {
+      "id": "heldout-side",
+      "role": "validation",
+      "reference_id": "synthetic-target",
+      "feature": "independent diagnostic location",
+      "component_id": "body",
+      "parameter_ids": [
+        "height",
+        "nose_drop"
+      ],
+      "uv": [
+        0.75,
+        0.75
+      ],
+      "target": [
+        0.7078125,
+        0.946875
+      ],
+      "projection": {
+        "matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "offset": [
+          0,
+          0
+        ]
+      }
+    }
+  ]
+}

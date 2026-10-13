@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "id": "synthetic-surface",
+  "domain": "vehicle",
+  "coordinate_system": {
+    "unit": "m",
+    "up": "y",
+    "forward": "z"
+  },
+  "references": [
+    {
+      "id": "synthetic-target",
+      "path": "synthetic-target.json",
+      "origin": "synthetic",
+      "approved": false,
+      "sha256": "ec356eecd519f9bc3d0f01334cb4a22e20987a19071167b9a899481fbaaf985b"
+    }
+  ],
+  "parameters": {
+    "width": {
+      "value": 1,
+      "min": 0.5,
+      "max": 2
+    },
+    "length": {
+      "value": 2,
+      "min": 1,
+      "max": 4
+    },
+    "height": {
+      "value": 0.9,
+      "min": 0.5,
+      "max": 1.5
+    },
+    "nose_drop": {
+      "value": 0.1,
+      "min": 0,
+      "max": 0.6
+    },
+    "shoulder_drop": {
+      "value": 0.15,
+      "min": 0,
+      "max": 0.4
+    },
+    "taper": {
+      "value": 0.1,
+      "min": 0,
+      "max": 0.5
+    }
+  },
+  "components": [
+    {
+      "id": "body",
+      "parent": null,
+      "role": "body_surface",
+      "geometry": {
+        "type": "patch_network",
+        "segments": [
+          12,
+          12
+        ],
+        "split_rows": [
+          6
+        ]
+      },
+      "material": "neutral"
+    }
+  ],
+  "observations": [
+    {
+      "id": "landmark-0",
+      "reference_id": "synthetic-target",
+      "feature": "known analytic fixture",
+      "component_id": "body",
+      "parameter_ids": [
+        "height",
+        "nose_drop"
+      ],
+      "uv": [
+        0,
+        0
+      ],
+      "target": [
+        0.0,
+        1.2
+      ],
+      "projection": {
+        "matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "offset": [
+          0,
+          0
+        ]
+      },
+      "role": "calibration"
+    },
+    {
+      "id": "landmark-1",
+      "reference_id": "synthetic-target",
+      "feature": "known analytic fixture",
+      "component_id": "body",
+      "parameter_ids": [
+        "height",
+        "nose_drop"
+      ],
+      "uv": [
+        0,
+        0.5
+      ],
+      "target": [
+        0.0,
+        1.125
+      ],
+      "projection": {
+        "matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "offset": [
+          0,
+          0
+        ]
+      },
+      "role": "calibration"
+    },
+    {
+      "id": "landmark-2",
+      "reference_id": "synthetic-target",
+      "feature": "known analytic fixture",
+      "component_id": "body",
+      "parameter_ids": [
+        "height",
+        "nose_drop"
+      ],
+      "uv": [
+        0,
+        1
+      ],
+      "target": [
+        0.0,
+        0.9
+      ],
+      "projection": {
+        "matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "offset": [
+          0,
+          0
+        ]
+      },
+      "role": "calibration"
+    },
+    {
+      "id": "landmark-3",
+      "reference_id": "synthetic-target",
+      "feature": "known analytic fixture",
+      "component_id": "body",
+      "parameter_ids": [
+        "height",
+        "nose_drop"
+      ],
+      "uv": [
+        0.5,
+        0.5
+      ],
+      "target": [
+        0.4875,
+        1.0875
+      ],
+      "projection": {
+        "matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "offset": [
+          0,
+          0
+        ]
+      },
+      "role": "calibration"
+    },
+    {
+      "id": "heldout-side",
+      "role": "validation",
+      "reference_id": "synthetic-target",
+      "feature": "independent diagnostic location",
+      "component_id": "body",
+      "parameter_ids": [
+        "height",
+        "nose_drop"
+      ],
+      "uv": [
+        0.75,
+        0.75
+      ],
+      "target": [
+        0.7078125,
+        0.946875
+      ],
+      "projection": {
+        "matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "offset": [
+          0,
+          0
+        ]
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "shared-boundary",
+      "kind": "geometry",
+      "required": true
+    }
+  ],
+  "quality_contract": {
+    "scope": "synthetic-software-test",
+    "limits": {
+      "landmark_rmse": 0.001
+    },
+    "assumptions": "Synthetic open hood-like surface experiment only. Targets below independently specified from y=1.2-.3*v*v-.15*u*u. Not photographic validation, full vehicle, or approved reference."
+  },
+  "source_files": [
+    {
+      "path": "../scripts/surface_model.py",
+      "sha256": "c55020d20a397c6ed1565b875265000d0ce2bcea2ce4bbecf529c2952e21481a"
+    },
+    {
+      "path": "../scripts/fit_surface.py",
+      "sha256": "681ecf5559a7019b75054739e6c8390a4912d95629e55fbfbabcd7abea14d472"
+    }
+  ]
+}

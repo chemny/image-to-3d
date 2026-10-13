@@ -1,0 +1,398 @@
+{
+  "schema_version": 1,
+  "id": "two-curved-patches",
+  "scope": "synthetic-software-test",
+  "control_points": {
+    "p0_0": {
+      "position": [
+        0.0,
+        0,
+        0.0
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p0_1": {
+      "position": [
+        0.0,
+        0.1,
+        0.3333333333333333
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p0_2": {
+      "position": [
+        0.0,
+        0.1,
+        0.6666666666666666
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p0_3": {
+      "position": [
+        0.0,
+        0,
+        1.0
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p1_0": {
+      "position": [
+        0.3333333333333333,
+        0,
+        0.0
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p1_1": {
+      "position": [
+        0.3333333333333333,
+        0.1,
+        0.3333333333333333
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p1_2": {
+      "position": [
+        0.3333333333333333,
+        0.1,
+        0.6666666666666666
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p1_3": {
+      "position": [
+        0.3333333333333333,
+        0,
+        1.0
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p2_0": {
+      "position": [
+        0.6666666666666666,
+        0,
+        0.0
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p2_1": {
+      "position": [
+        0.6666666666666666,
+        0.1,
+        0.3333333333333333
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p2_2": {
+      "position": [
+        0.6666666666666666,
+        0.1,
+        0.6666666666666666
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p2_3": {
+      "position": [
+        0.6666666666666666,
+        0,
+        1.0
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p3_0": {
+      "position": [
+        1.0,
+        0,
+        0.0
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p3_1": {
+      "position": [
+        1.0,
+        0.1,
+        0.3333333333333333
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p3_2": {
+      "position": [
+        1.0,
+        0.1,
+        0.6666666666666666
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p3_3": {
+      "position": [
+        1.0,
+        0,
+        1.0
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p4_0": {
+      "position": [
+        1.3333333333333333,
+        0,
+        0.0
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p4_1": {
+      "position": [
+        1.3333333333333333,
+        0.1,
+        0.3333333333333333
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p4_2": {
+      "position": [
+        1.3333333333333333,
+        0.1,
+        0.6666666666666666
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p4_3": {
+      "position": [
+        1.3333333333333333,
+        0,
+        1.0
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p5_0": {
+      "position": [
+        1.6666666666666667,
+        0,
+        0.0
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p5_1": {
+      "position": [
+        1.6666666666666667,
+        0.1,
+        0.3333333333333333
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p5_2": {
+      "position": [
+        1.6666666666666667,
+        0.1,
+        0.6666666666666666
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p5_3": {
+      "position": [
+        1.6666666666666667,
+        0,
+        1.0
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p6_0": {
+      "position": [
+        2.0,
+        0,
+        0.0
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p6_1": {
+      "position": [
+        2.0,
+        0.1,
+        0.3333333333333333
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p6_2": {
+      "position": [
+        2.0,
+        0.1,
+        0.6666666666666666
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    },
+    "p6_3": {
+      "position": [
+        2.0,
+        0,
+        1.0
+      ],
+      "source": {
+        "kind": "synthetic",
+        "note": "manually specified curved ribbon software fixture, not image observation"
+      }
+    }
+  },
+  "patches": [
+    {
+      "id": "left",
+      "control_points": [
+        [
+          "p0_0",
+          "p0_1",
+          "p0_2",
+          "p0_3"
+        ],
+        [
+          "p1_0",
+          "p1_1",
+          "p1_2",
+          "p1_3"
+        ],
+        [
+          "p2_0",
+          "p2_1",
+          "p2_2",
+          "p2_3"
+        ],
+        [
+          "p3_0",
+          "p3_1",
+          "p3_2",
+          "p3_3"
+        ]
+      ],
+      "segments": [
+        8,
+        8
+      ]
+    },
+    {
+      "id": "right",
+      "control_points": [
+        [
+          "p3_0",
+          "p3_1",
+          "p3_2",
+          "p3_3"
+        ],
+        [
+          "p4_0",
+          "p4_1",
+          "p4_2",
+          "p4_3"
+        ],
+        [
+          "p5_0",
+          "p5_1",
+          "p5_2",
+          "p5_3"
+        ],
+        [
+          "p6_0",
+          "p6_1",
+          "p6_2",
+          "p6_3"
+        ]
+      ],
+      "segments": [
+        8,
+        8
+      ]
+    }
+  ],
+  "shared_edges": [
+    {
+      "a": {
+        "patch": "left",
+        "edge": "u1"
+      },
+      "b": {
+        "patch": "right",
+        "edge": "u0"
+      },
+      "continuity": "C1",
+      "reverse": false,
+      "tolerance": 1e-07
+    }
+  ]
+}

@@ -1,0 +1,959 @@
+{
+  "schema_version": 1,
+  "coordinate_system": {
+    "unit": "m",
+    "up": "y",
+    "forward": "z"
+  },
+  "parameters": {},
+  "materials": {
+    "paint": {
+      "color": "#3366aa",
+      "roughness": 0.45,
+      "metalness": 0,
+      "source": {
+        "kind": "designed",
+        "note": "Arbitrary fixture palette."
+      }
+    },
+    "metal": {
+      "color": "#aaaaaa",
+      "roughness": 0.45,
+      "metalness": 0.3,
+      "source": {
+        "kind": "designed",
+        "note": "Arbitrary fixture palette."
+      }
+    },
+    "rubber": {
+      "color": "#222222",
+      "roughness": 0.45,
+      "metalness": 0,
+      "source": {
+        "kind": "designed",
+        "note": "Arbitrary fixture palette."
+      }
+    },
+    "accent": {
+      "color": "#cc8844",
+      "roughness": 0.45,
+      "metalness": 0.3,
+      "source": {
+        "kind": "designed",
+        "note": "Arbitrary fixture palette."
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "fixture-origin",
+      "kind": "assembly",
+      "parent": null,
+      "role": "stationary fixture datum",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "selectable": false,
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "wheel",
+      "parent": "fixture-origin",
+      "kind": "assembly",
+      "role": "wheel",
+      "selectable": true,
+      "position": [
+        0.4,
+        1,
+        0.2
+      ],
+      "rotation": [
+        0.1,
+        0.2,
+        0.3
+      ]
+    },
+    {
+      "id": "tyre",
+      "parent": "wheel",
+      "kind": "part",
+      "role": "tyre",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "torus",
+        "radius": 0.85,
+        "tube": 0.14,
+        "radialSegments": 8,
+        "tubularSegments": 24
+      },
+      "material": "rubber",
+      "material_slots": {
+        "default": "rubber",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0.45
+      ]
+    },
+    {
+      "id": "hub",
+      "parent": "wheel",
+      "kind": "part",
+      "role": "hub",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        1.5707963267948966,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "cylinder",
+        "radiusTop": 0.13,
+        "radiusBottom": 0.13,
+        "height": 0.22
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        -0.35
+      ]
+    },
+    {
+      "id": "rim-classic",
+      "parent": "wheel",
+      "kind": "assembly",
+      "role": "rim-classic",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ring-classic",
+      "parent": "rim-classic",
+      "kind": "part",
+      "role": "ring-classic",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "torus",
+        "radius": 0.63,
+        "tube": 0.06,
+        "radialSegments": 8,
+        "tubularSegments": 24
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "spoke-classic-0",
+      "parent": "rim-classic",
+      "kind": "part",
+      "role": "spoke-classic-0",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            0.14,
+            0.0,
+            0
+          ],
+          [
+            0.6,
+            0.0,
+            0
+          ]
+        ],
+        "radius": 0.035,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "spoke-classic-1",
+      "parent": "rim-classic",
+      "kind": "part",
+      "role": "spoke-classic-1",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            0.043262379212492645,
+            0.1331479122813215,
+            0
+          ],
+          [
+            0.18541019662496847,
+            0.570633909777092,
+            0
+          ]
+        ],
+        "radius": 0.035,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "spoke-classic-2",
+      "parent": "rim-classic",
+      "kind": "part",
+      "role": "spoke-classic-2",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            -0.11326237921249264,
+            0.08228993532094626,
+            0
+          ],
+          [
+            -0.48541019662496837,
+            0.35267115137548394,
+            0
+          ]
+        ],
+        "radius": 0.035,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "spoke-classic-3",
+      "parent": "rim-classic",
+      "kind": "part",
+      "role": "spoke-classic-3",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            -0.11326237921249266,
+            -0.08228993532094624,
+            0
+          ],
+          [
+            -0.4854101966249684,
+            -0.3526711513754838,
+            0
+          ]
+        ],
+        "radius": 0.035,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "spoke-classic-4",
+      "parent": "rim-classic",
+      "kind": "part",
+      "role": "spoke-classic-4",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            0.04326237921249262,
+            -0.13314791228132153,
+            0
+          ],
+          [
+            0.18541019662496833,
+            -0.5706339097770922,
+            0
+          ]
+        ],
+        "radius": 0.035,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "rim-sport",
+      "parent": "wheel",
+      "kind": "assembly",
+      "role": "rim-sport",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ring-sport",
+      "parent": "rim-sport",
+      "kind": "part",
+      "role": "ring-sport",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "torus",
+        "radius": 0.63,
+        "tube": 0.06,
+        "radialSegments": 8,
+        "tubularSegments": 24
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "spoke-sport-0",
+      "parent": "rim-sport",
+      "kind": "part",
+      "role": "spoke-sport-0",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            0.14,
+            0.0,
+            0
+          ],
+          [
+            0.6,
+            0.0,
+            0
+          ]
+        ],
+        "radius": 0.035,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "spoke-sport-1",
+      "parent": "rim-sport",
+      "kind": "part",
+      "role": "spoke-sport-1",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            0.09899494936611666,
+            0.09899494936611665,
+            0
+          ],
+          [
+            0.4242640687119285,
+            0.42426406871192845,
+            0
+          ]
+        ],
+        "radius": 0.035,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "spoke-sport-2",
+      "parent": "rim-sport",
+      "kind": "part",
+      "role": "spoke-sport-2",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            8.572527594031473e-18,
+            0.14,
+            0
+          ],
+          [
+            3.6739403974420595e-17,
+            0.6,
+            0
+          ]
+        ],
+        "radius": 0.035,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "spoke-sport-3",
+      "parent": "rim-sport",
+      "kind": "part",
+      "role": "spoke-sport-3",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            -0.09899494936611665,
+            0.09899494936611666,
+            0
+          ],
+          [
+            -0.42426406871192845,
+            0.4242640687119285,
+            0
+          ]
+        ],
+        "radius": 0.035,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "spoke-sport-4",
+      "parent": "rim-sport",
+      "kind": "part",
+      "role": "spoke-sport-4",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            -0.14,
+            1.7145055188062947e-17,
+            0
+          ],
+          [
+            -0.6,
+            7.347880794884119e-17,
+            0
+          ]
+        ],
+        "radius": 0.035,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "spoke-sport-5",
+      "parent": "rim-sport",
+      "kind": "part",
+      "role": "spoke-sport-5",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            -0.09899494936611669,
+            -0.09899494936611665,
+            0
+          ],
+          [
+            -0.4242640687119286,
+            -0.42426406871192845,
+            0
+          ]
+        ],
+        "radius": 0.035,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "spoke-sport-6",
+      "parent": "rim-sport",
+      "kind": "part",
+      "role": "spoke-sport-6",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            -2.571758278209442e-17,
+            -0.14,
+            0
+          ],
+          [
+            -1.1021821192326178e-16,
+            -0.6,
+            0
+          ]
+        ],
+        "radius": 0.035,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "spoke-sport-7",
+      "parent": "rim-sport",
+      "kind": "part",
+      "role": "spoke-sport-7",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            0.09899494936611664,
+            -0.09899494936611669,
+            0
+          ],
+          [
+            0.4242640687119284,
+            -0.4242640687119286,
+            0
+          ]
+        ],
+        "radius": 0.035,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "cameras": {
+    "review": {
+      "position": [
+        4,
+        3,
+        5
+      ],
+      "target": [
+        0,
+        1,
+        0
+      ],
+      "type": "perspective",
+      "width": 1000,
+      "height": 750,
+      "up": [
+        0,
+        1,
+        0
+      ],
+      "fov_y_deg": 40,
+      "near": 0.01,
+      "far": 100
+    }
+  },
+  "actions": [
+    {
+      "id": "spin",
+      "component_id": "wheel",
+      "axis": "z",
+      "angle": 1.5707963267948966,
+      "pivot": [
+        0.4,
+        1,
+        0.2
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "spin-anchor",
+      "a": {
+        "component_id": "wheel",
+        "local_point": [
+          0,
+          0,
+          0
+        ]
+      },
+      "b": {
+        "component_id": "fixture-origin",
+        "local_point": [
+          0.4,
+          1,
+          0.2
+        ]
+      },
+      "max_distance": 1e-07
+    }
+  ],
+  "variants": [
+    {
+      "id": "rim-style",
+      "options": {
+        "classic": [
+          "rim-classic"
+        ],
+        "sport": [
+          "rim-sport"
+        ]
+      },
+      "default": "classic"
+    }
+  ],
+  "quality_contract": {
+    "scope": "synthetic-software-test"
+  },
+  "asset_contract": {
+    "version": 1,
+    "object_class": "car",
+    "intended_use": "configurator",
+    "units_source": "relative",
+    "required_components": [
+      "wheel",
+      "tyre",
+      "hub",
+      "rim-classic",
+      "ring-classic",
+      "spoke-classic-0",
+      "spoke-classic-1",
+      "spoke-classic-2",
+      "spoke-classic-3",
+      "spoke-classic-4",
+      "rim-sport",
+      "ring-sport",
+      "spoke-sport-0",
+      "spoke-sport-1",
+      "spoke-sport-2",
+      "spoke-sport-3",
+      "spoke-sport-4",
+      "spoke-sport-5",
+      "spoke-sport-6",
+      "spoke-sport-7"
+    ],
+    "required_operations": [
+      "select",
+      "material",
+      "variant",
+      "explode",
+      "action"
+    ],
+    "delivery_targets": [
+      "threejs",
+      "glb"
+    ],
+    "source_notes": "Explicit designed DEVELOPMENT fixture for software behavior tests only; no reference photograph or image reconstruction claim."
+  }
+}

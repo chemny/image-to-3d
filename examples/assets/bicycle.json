@@ -1,0 +1,702 @@
+{
+  "schema_version": 1,
+  "coordinate_system": {
+    "unit": "m",
+    "up": "y",
+    "forward": "z"
+  },
+  "parameters": {},
+  "materials": {
+    "paint": {
+      "color": "#3366aa",
+      "roughness": 0.45,
+      "metalness": 0,
+      "source": {
+        "kind": "designed",
+        "note": "Arbitrary fixture palette."
+      }
+    },
+    "metal": {
+      "color": "#aaaaaa",
+      "roughness": 0.45,
+      "metalness": 0.3,
+      "source": {
+        "kind": "designed",
+        "note": "Arbitrary fixture palette."
+      }
+    },
+    "rubber": {
+      "color": "#222222",
+      "roughness": 0.45,
+      "metalness": 0,
+      "source": {
+        "kind": "designed",
+        "note": "Arbitrary fixture palette."
+      }
+    },
+    "accent": {
+      "color": "#cc8844",
+      "roughness": 0.45,
+      "metalness": 0.3,
+      "source": {
+        "kind": "designed",
+        "note": "Arbitrary fixture palette."
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "frame",
+      "parent": null,
+      "kind": "assembly",
+      "role": "frame",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "frame-lower",
+      "parent": "frame",
+      "kind": "part",
+      "role": "frame-lower",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            0,
+            0.65,
+            -0.8
+          ],
+          [
+            0,
+            0.5,
+            0
+          ],
+          [
+            0,
+            1.3,
+            0.65
+          ]
+        ],
+        "radius": 0.04,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "paint",
+      "material_slots": {
+        "default": "paint",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "frame-upper",
+      "parent": "frame",
+      "kind": "part",
+      "role": "frame-upper",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            0,
+            0.65,
+            -0.8
+          ],
+          [
+            0,
+            1.3,
+            -0.25
+          ],
+          [
+            0,
+            1.3,
+            0.65
+          ]
+        ],
+        "radius": 0.04,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "paint",
+      "material_slots": {
+        "default": "paint",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "seat-post",
+      "parent": "frame",
+      "kind": "part",
+      "role": "seat-post",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            0,
+            0.5,
+            0
+          ],
+          [
+            0,
+            1.45,
+            -0.3
+          ]
+        ],
+        "radius": 0.04,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "paint",
+      "material_slots": {
+        "default": "paint",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "rear-wheel",
+      "parent": "frame",
+      "kind": "assembly",
+      "role": "rear-wheel",
+      "selectable": true,
+      "position": [
+        0,
+        0.48,
+        -0.85
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ]
+    },
+    {
+      "id": "rear-tyre",
+      "parent": "rear-wheel",
+      "kind": "part",
+      "role": "rear-tyre",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "torus",
+        "radius": 0.4,
+        "tube": 0.065,
+        "radialSegments": 8,
+        "tubularSegments": 24
+      },
+      "material": "rubber",
+      "material_slots": {
+        "default": "rubber",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0.3
+      ]
+    },
+    {
+      "id": "rear-rim",
+      "parent": "rear-wheel",
+      "kind": "part",
+      "role": "rear-rim",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "torus",
+        "radius": 0.3,
+        "tube": 0.025,
+        "radialSegments": 8,
+        "tubularSegments": 24
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "rear-spoke",
+      "parent": "rear-wheel",
+      "kind": "part",
+      "role": "rear-spoke",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            -0.3,
+            0,
+            0
+          ],
+          [
+            0.3,
+            0,
+            0
+          ]
+        ],
+        "radius": 0.018,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "front-wheel",
+      "parent": "frame",
+      "kind": "assembly",
+      "role": "front-wheel",
+      "selectable": true,
+      "position": [
+        0,
+        0.48,
+        0.85
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ]
+    },
+    {
+      "id": "front-tyre",
+      "parent": "front-wheel",
+      "kind": "part",
+      "role": "front-tyre",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "torus",
+        "radius": 0.4,
+        "tube": 0.065,
+        "radialSegments": 8,
+        "tubularSegments": 24
+      },
+      "material": "rubber",
+      "material_slots": {
+        "default": "rubber",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0.3
+      ]
+    },
+    {
+      "id": "front-rim",
+      "parent": "front-wheel",
+      "kind": "part",
+      "role": "front-rim",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "torus",
+        "radius": 0.3,
+        "tube": 0.025,
+        "radialSegments": 8,
+        "tubularSegments": 24
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "front-spoke",
+      "parent": "front-wheel",
+      "kind": "part",
+      "role": "front-spoke",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            -0.3,
+            0,
+            0
+          ],
+          [
+            0.3,
+            0,
+            0
+          ]
+        ],
+        "radius": 0.018,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "steering",
+      "parent": "frame",
+      "kind": "assembly",
+      "role": "steering",
+      "selectable": true,
+      "position": [
+        0,
+        1.45,
+        0.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "handlebars",
+      "parent": "steering",
+      "kind": "part",
+      "role": "handlebars",
+      "selectable": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "type": "tube",
+        "points": [
+          [
+            -0.45,
+            0,
+            -0.1
+          ],
+          [
+            -0.2,
+            0,
+            0
+          ],
+          [
+            0.2,
+            0,
+            0
+          ],
+          [
+            0.45,
+            0,
+            -0.1
+          ]
+        ],
+        "radius": 0.04,
+        "radialSegments": 8,
+        "closed": true
+      },
+      "material": "metal",
+      "material_slots": {
+        "default": "metal",
+        "accent": "accent"
+      },
+      "explode_vector": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "cameras": {
+    "review": {
+      "position": [
+        4,
+        3,
+        5
+      ],
+      "target": [
+        0,
+        1,
+        0
+      ],
+      "type": "perspective",
+      "width": 1000,
+      "height": 750,
+      "up": [
+        0,
+        1,
+        0
+      ],
+      "fov_y_deg": 40,
+      "near": 0.01,
+      "far": 100
+    }
+  },
+  "actions": [
+    {
+      "id": "rear-spin",
+      "component_id": "rear-wheel",
+      "axis": "x",
+      "angle": 1.5707963267948966,
+      "pivot": [
+        0,
+        0.48,
+        -0.85
+      ]
+    },
+    {
+      "id": "front-spin",
+      "component_id": "front-wheel",
+      "axis": "x",
+      "angle": 1.5707963267948966,
+      "pivot": [
+        0,
+        0.48,
+        0.85
+      ]
+    },
+    {
+      "id": "steer",
+      "component_id": "steering",
+      "axis": "y",
+      "angle": 0.7853981633974483,
+      "pivot": [
+        0,
+        1.45,
+        0.7
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "rear-spin-anchor",
+      "a": {
+        "component_id": "rear-wheel",
+        "local_point": [
+          0,
+          0,
+          0
+        ]
+      },
+      "b": {
+        "component_id": "frame",
+        "local_point": [
+          0,
+          0.48,
+          -0.85
+        ]
+      },
+      "max_distance": 1e-07
+    },
+    {
+      "id": "front-spin-anchor",
+      "a": {
+        "component_id": "front-wheel",
+        "local_point": [
+          0,
+          0,
+          0
+        ]
+      },
+      "b": {
+        "component_id": "frame",
+        "local_point": [
+          0,
+          0.48,
+          0.85
+        ]
+      },
+      "max_distance": 1e-07
+    },
+    {
+      "id": "steer-anchor",
+      "a": {
+        "component_id": "steering",
+        "local_point": [
+          0,
+          0,
+          0
+        ]
+      },
+      "b": {
+        "component_id": "frame",
+        "local_point": [
+          0,
+          1.45,
+          0.7
+        ]
+      },
+      "max_distance": 1e-07
+    }
+  ],
+  "variants": [],
+  "quality_contract": {
+    "scope": "synthetic-software-test"
+  },
+  "asset_contract": {
+    "version": 1,
+    "object_class": "bicycle",
+    "intended_use": "configurator",
+    "units_source": "relative",
+    "required_components": [
+      "frame",
+      "frame-lower",
+      "frame-upper",
+      "seat-post",
+      "rear-wheel",
+      "rear-tyre",
+      "rear-rim",
+      "rear-spoke",
+      "front-wheel",
+      "front-tyre",
+      "front-rim",
+      "front-spoke",
+      "steering",
+      "handlebars"
+    ],
+    "required_operations": [
+      "select",
+      "material",
+      "explode",
+      "action"
+    ],
+    "delivery_targets": [
+      "threejs",
+      "glb"
+    ],
+    "source_notes": "Explicit designed DEVELOPMENT fixture for software behavior tests only; no reference photograph or image reconstruction claim."
+  }
+}

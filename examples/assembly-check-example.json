@@ -1,0 +1,14 @@
+{
+  "scope": "synthetic topology and hinge-anchor software fixture only",
+  "unit": "m",
+  "meshes": [{"id":"closed-tetra-fixture","contract":"closed_shell","positions":[0,0,0,1,0,0,0,1,0,0,0,1],"triangles":[0,2,1,0,1,3,0,3,2,1,2,3]}],
+  "assembly": {
+    "nodes": [
+      {"id":"body","parent":null,"kind":"fixed","translation":[0,0,0]},
+      {"id":"door","parent":"body","kind":"moving","translation":[0,0,0],"rotation":{"axis":"y","degrees":0}}
+    ],
+    "ownership":[{"node":"door","required_parent":"body","required_kind":"moving"}],
+    "connections":[{"id":"hinge","a":{"node":"door","point":[0,0,0]},"b":{"node":"body","point":[0,0,0]},"max_distance":0.0001}],
+    "poses":[{"id":"closed","angles":{"door":0}},{"id":"half","angles":{"door":35}},{"id":"open","angles":{"door":70}}]
+  }
+}

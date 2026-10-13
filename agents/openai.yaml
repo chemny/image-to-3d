@@ -1,0 +1,4 @@
+interface:
+  display_name: "Image to 3D"
+  short_description: "分析参考图，以可追溯 Spec 构建、校准并交付交互模型"
+  default_prompt: "使用 $image-to-3d，从我的参考图分析结构和特征，按统一项目入口建立 Spec、构建模型、进行多视角校准与实际渲染检查；车辆复用已确认配置器，保留原图和有效基线。"

@@ -1,12 +1,16 @@
 # 统一入口：从图片到可交付模型
 
+工作组织采用 [系统制作流程](systematic-production.md)：结构与表面分支共用参考、版本和展示；已有基线的替换执行 [采用质量阀](adoption-review.md)，退步或不确定的候选不替换已接受版本。本文正式认证/技术检查与迭代预览分别使用，不把预览进度等同认证通过。
+
+新建默认reference_standard:2、foundation_standard:1；整体形体流程见 [整体形体控制](shape-foundation.md)。整体未通过不得进入正式精修；已有模型新修复先使用reference-prepare，再reference-check，按 [共用准入](common-reference-admission.md) 执行。next.reference_admission明确报告参考是否准备好；workflow的blocked:false不代表参考已通过。
+
 执行代理负责看图、记录语义、选择几何与填控制网；确定性工具负责投影、构建、修正、捕获和证据校验。不要把这些角色混成“图片自己转出了控制点”。下列命令均从 skill 根目录运行，路径使用任务的实际绝对路径。
 
 ## 开始与参考
 
 `python3 scripts/project.py init --image INPUT.png --domain generic --object-class generic --targets threejs glb --out TASK`
 
-车辆使用 domain vehicle。初始化保留原图、哈希、尺寸，建立 spec.json、analysis.json、project.json 和唯一的 state.json；不预填猜测模型。每次恢复运行 `project.py next --project TASK`，不要只依赖聊天记忆。已有新core任务直接恢复；旧车辆项目保留原状态，迁移时单独登记输入与真实证据，不自动套用旧通过记录。
+车辆使用 domain vehicle。初始化保留原图、哈希、尺寸，建立 spec.json、analysis.json、project.json 和唯一的 state.json；不预填猜测模型。每次恢复运行 `project.py next --project TASK`，不要只依赖聊天记忆。已有案例另按 [版本核实与成果继承](presentation-delivery.md#版本核实与成果继承) 执行 resume 记录检查；next 不自动查询统一案例或合并已接受样件。已有新core任务直接恢复；旧车辆项目保留原状态，迁移时单独登记输入与真实证据，不自动套用旧通过记录。
 
 按 construction-playbook.md 看图并填写 analysis.feature_inventory：reference_id、feature、component_id、required、visibility。Spec 中观察项绑定 component_id 与 local_point / vertex_index / patch_id+uv 三种之一，并填 reference_id、camera_id、target、roi、parameter_ids、sigma_px 和 calibration/validation。隐藏项填 rationale/confidence，不假装观测。全部几何、相机、材质与动作放 Spec；analysis 不得持有不同版本的 observations。
 
@@ -49,6 +53,8 @@ scene_build会根据逐件topology_contract检查开闭；内置硬边生成器�
 
 它拒绝诊断包、陈旧Spec、资源变更和未通过交付门槛。打包可重跑资源/证据，不等于部署或GitHub发布。公开skill不包含用户案例模型或私有参考。
 
+项目指定统一案例展示页时，继续执行 [展示交付与案例接入](presentation-delivery.md)：将已验收交付版本登记到项目案例目录，完成统一界面的加载、操作及切换回归后才报告接入完成。当前export不自动注册案例；不得将模型包导出成功当作案例页已更新。
+
 
 ## 资产合同、真实操作和跨工具交换（v0.3）
 
@@ -72,3 +78,16 @@ exchange输出 model.glb、清单、交换报告，以及实际执行时的blend
 ## 制作标准 v1 扩展
 
 参见 [通用制作标准](production-standard.md)：新增生产契约、真实表面绑定、采样距离/镜像检查、捕获绑定的局部多视角记录以及显式修复审查。新项目在 Spec 阶段强制完整契约；旧项目保持兼容但不追认。规则完整性与视觉还原质量分别验收，未见对象效果需另做独立测试。
+
+## 已有模型修复入口（0.7）
+
+造型修复使用 [通用修复流程](repair-workflow.md)；repair-start/repair-audit/repair-review/repair-parameters/repair-restore 共享原 project/state 阶段，不创建第二套批准状态。未接入修复的历史任务保持兼容；接入后不能删除策略逃过检查。
+
+## 校准前置：粗比例与机位
+
+只调相机失败时先核对语义与可观测性；参考支持的实际粗比例可以执行[联合初始化](coarse-initialization.md)。`coarse_initialization.py`生成新候选与报告；`coarse_baseline.py --spec CANDIDATE --contract JOINT --fit-report FIT --resource-root RESOURCES --out NEW_BASELINE`重新校验后冻结。新基线之后再执行reference-prepare/repair-start，初始化报告不能替代body或交付审查。
+
+
+## 轻量展示交付
+
+接入 [轻量展示交付 v1](lightweight-delivery.md)：新建构建默认采用独立或锁定模板兼容的无损压缩数据，界面不重复加载完整几何。分别记录展示资产预算、解压规模及设备性能；现有功能、视觉、交换验证和采用质量阀保持有效，打包通过不代替这些结论。

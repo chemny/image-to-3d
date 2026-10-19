@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "component_id": "blend_strip",
+  "source": {
+    "reference_id": "authored-synthetic-example",
+    "roi": [
+      0,
+      0,
+      100,
+      100
+    ]
+  },
+  "rationale": "Authored tool example only; not a measured photograph or production-approved asset.",
+  "method": "blend_strip",
+  "parameters": {
+    "a": [
+      [
+        -0.5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0.1
+      ],
+      [
+        0.5,
+        0,
+        0
+      ]
+    ],
+    "b": [
+      [
+        -0.5,
+        0.8,
+        0
+      ],
+      [
+        0,
+        0.8,
+        0.1
+      ],
+      [
+        0.5,
+        0.8,
+        0
+      ]
+    ],
+    "a_inward": [
+      [
+        0,
+        0.6,
+        0.4
+      ],
+      [
+        0,
+        0.6,
+        0.4
+      ],
+      [
+        0,
+        0.6,
+        0.4
+      ]
+    ],
+    "b_inward": [
+      [
+        0,
+        -0.6,
+        0.4
+      ],
+      [
+        0,
+        -0.6,
+        0.4
+      ],
+      [
+        0,
+        -0.6,
+        0.4
+      ]
+    ]
+  }
+}

@@ -1,5 +1,7 @@
 # 分层测试和放行
 
+工作组织采用 [系统制作流程](systematic-production.md)：结构与表面分支共用参考、版本和展示；已有基线的替换执行 [采用质量阀](adoption-review.md)，退步或不确定的候选不替换已接受版本。本文正式认证/技术检查与迭代预览分别使用，不把预览进度等同认证通过。
+
 | 层级 | 执行内容 | 能证明 | 不能证明 |
 |---|---|---|---|
 | 软件 | unittest；错误输入与失败注入 | 阶段、哈希、边界和数据检查行为 | 图像还原优秀 |
@@ -25,3 +27,37 @@ v0.3开发回归增加 car-wheel / bicycle / motorcycle / toy 四个明确设计
 参见 [通用制作标准](production-standard.md)：新增生产契约、真实表面绑定、采样距离/镜像检查、捕获绑定的局部多视角记录以及显式修复审查。新项目在 Spec 阶段强制完整契约；旧项目保持兼容但不追认。规则完整性与视觉还原质量分别验收，未见对象效果需另做独立测试。
 
 参考标准v1的覆盖、来源、确认、过期资源及锚点错位测试详见reference-validation-plan.md；新增test_reference_set.py与test_anchor_evidence.py。reference-check不看懂图片，anchor-evidence不自动判定视觉通过。
+
+## 通用修复 v1 验证
+
+增加test_model_repair.py、test_repair_capture.py、test_surface_attachment.py、test_repair_project.py：参数实际驱动、父级变换、刚性位置/法线一致、保护件、目标误绑定、冻结验收目标、重复/假机位、表面间隙、实际开孔、失效凭据、删策略、采用与无覆盖回退。实际WebGL捕获另检，不以构造PNG测试证明渲染。阶段与性能报告记录实际次数，不预设速度倍数；新对象API样例不冒充未见图片重建。
+
+## 联合初始化与曲线机位锁定回归
+
+- 真实网格参数改变宽度/厚度，正交与透视共享同一几何；稀疏世界坐标和完整原生构建相符。
+- 校准与留出隔离；修改留出不影响候选、种子选择或数据秩。
+- 陈旧原图/源码、未描边部件变化、保护件漂移、错误边绑定、相机变换或退化参数阻止冻结。
+- 基线冻结重新计算全部误差和可观测性，拒绝伪造的通过标志与陈旧指标，目录及输入不可覆盖。
+- 曲线锁定包含真实边、世界坐标与源图目标；改边拓扑、校准几何、父级变换或容差必须使证据失效。其他曲面局部修改保持保护锚点有效。
+- 实际曲面法向契约应拒绝二元顶点筛选制造的折面，连续支撑权重正例可通过；伪造平滑渲染法线不能掩盖几何折面。
+- 非车辆闭合软玩具合成前向验证与既有真实小鸡构建回归分开报告；不以合成测试推断真实图片还原。
+
+## 已有版本采用检查
+
+运行 `PYTHONPATH=scripts python3 -m unittest discover -s tests -p 'test_adoption_check.py'`。覆盖改善/不变允许采用、退步保留基线、不确定待定、漏区/重复/失效资源/条件不一致拒绝。使用实际前后模型和截图记录再执行 `adoption_check.py`；单元测试只证明判断路由与证据校验，不证明视觉判断正确。实际替换后检查案例加载的是采用版本，并按修改影响复核功能；拒绝候选应保持旧默认入口。
+
+## 版本交接回归
+
+`PYTHONPATH=scripts python3 -m unittest discover -s tests -p "test_version_handoff.py" -v` 在临时目录验证：生产版与样件区分、施工基线身份、成果遗漏/重复、明确延期、最终候选继承证据、陈旧注册/资源、错误来源、旧模型仍被加载、采用审查退步或不确定、切换返回与复位及保护操作失败、恢复位置缺失、CLI 不改输入。并运行既有 test_adoption_check.py、test_lightweight_delivery.py 及项目流程相关测试。
+
+这些是记录校验的软件回归，不是现有案例已重新做过浏览器验收或视觉认证。真实接入仍须按 presentation-delivery.md 采集页面和资源证据；不为运行软件测试修改生产案例。
+
+## 工程缺陷回归
+
+新增 `test_engineering_regression.py`，复用已有构建器及检查器：
+
+- 表面贴合：伸出件只检查真实根部、单点悬空定位、最小间隙与过度埋入、法线侧、共同父级变换与单独父级运动、错误邻面掩盖、无效绑定/宿主面、空集与重复 ID、repair 会话中实际约束生效。
+- 曲面：等幅曲率反转、直线、设计硬边不被默认抹平、刚性旋转及单位缩放、非法上限/短路径、假着色法线不能绕过 scene_build 实际几何检查。
+- 缺陷分诊复用上面注入的测量失败及既有 topology、surface_quality、local_deformation_guard 回归；不宣称新增自动图像诊断或完整重叠面/碰撞求解器。
+
+运行：`PYTHONPATH=scripts:tests python3 -m unittest test_engineering_regression test_surface_attachment test_surface_quality test_surface_construction test_local_deformation_guard test_model_repair test_repair_project test_mesh_checks -v`。全部在临时/合成数据上执行，不修改案例模型。根部/曲率上限按任务选择，旧的无此声明项目保持旧行为（空表面检查调用现在明确拒绝）。

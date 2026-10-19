@@ -27,3 +27,24 @@ class EvidenceTest(unittest.TestCase):
  def test_grid_not_geometry(self):
   grid(self.p/'a.png',self.p/'grid',2,2);r=json.loads((self.p/'grid/grid.json').read_text());self.assertEqual(len(r['cells']),4);self.assertTrue(all(x['review']=='pending' for x in r['cells']))
 if __name__=='__main__':unittest.main()
+
+class NewComparisonTests(unittest.TestCase):
+ setUp=EvidenceTest.setUp
+ save=EvidenceTest.save
+ run_diff=EvidenceTest.run_diff
+ def test_overlap_green(self):
+  self.run_diff()
+  with Image.open(self.p/'out/difference.png')as im:self.assertEqual(im.getpixel((0,1)),(35,175,95))
+ def test_pixel_grid_coordinates_and_source_identity(self):
+  grid(self.p/'a.png',self.p/'pixel',pixel_step=50);r=json.loads((self.p/'pixel/grid.json').read_text());self.assertEqual(r['grid_kind'],'pixel');self.assertEqual(r['pixel_step'],50);self.assertEqual(r['sha256'],sha(self.p/'a.png'));self.assertEqual(r['image']['sha256'],sha(self.p/'pixel/grid.png'))
+ def test_metric_recomputation(self):
+  from reference_evidence import validate_diff
+  self.run_diff();self.assertTrue(validate_diff(self.p/'out/metrics.json')['passed'])
+ def test_forged_metric_even_with_intact_images(self):
+  from reference_evidence import validate_diff
+  self.run_diff();p=self.p/'out/metrics.json';d=json.loads(p.read_text());d['iou']=1;p.write_text(json.dumps(d))
+  with self.assertRaisesRegex(ValueError,'metrics'):validate_diff(p)
+ def test_forged_image_even_with_refreshed_hash(self):
+  from reference_evidence import validate_diff
+  self.run_diff();p=self.p/'out/metrics.json';d=json.loads(p.read_text());Image.new('RGB',(2,2),'green').save(self.p/'out/difference.png');d['image']['sha256']=sha(self.p/'out/difference.png');p.write_text(json.dumps(d))
+  with self.assertRaisesRegex(ValueError,'image does not match'):validate_diff(p)

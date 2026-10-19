@@ -72,6 +72,9 @@ def segments(g,key,default):
 
 def _geometry(g):
     kind=g.get('type');p=[];t=[]
+    if kind=='form_recipe':
+        from form_construction import compile_recipe
+        return _geometry(compile_recipe(g['recipe'])['geometry'])
     if kind=='mesh':
         mesh=normmesh(g['positions'],g['triangles'])
         if 'uvs' in g:
@@ -169,7 +172,17 @@ def prepared(spec):
     nodes={}
     for c in s['components']:
         if c['id'] in nodes:raise ValueError('duplicate component')
-        vector(c.get('position',[0,0,0]));vector(c.get('rotation',[0,0,0]));nodes[c['id']]=c
+        vector(c.get('position',[0,0,0]));vector(c.get('rotation',[0,0,0]))
+        if c.get('geometry',{}).get('type')=='form_recipe':
+            from form_construction import compile_recipe
+            recipe=c['geometry']['recipe']
+            if recipe.get('component_id')!=c['id']:raise ValueError('recipe component identity mismatch')
+            refs={r['id']:r for r in s.get('references',[])};source=recipe.get('source',{});ref=refs.get(source.get('reference_id'))
+            if not ref:raise ValueError('recipe reference missing')
+            x,y,w,h=source['roi'];iw,ih=ref['image_size']
+            if not (0<=x<x+w<=iw and 0<=y<y+h<=ih):raise ValueError('recipe ROI outside source')
+            compiled=compile_recipe(recipe);c['_construction_recipe']=recipe;c['geometry']=compiled['geometry']
+        nodes[c['id']]=c
     for key in nodes:
         seen=set();cursor=key
         while cursor is not None:
@@ -220,6 +233,15 @@ def _build(spec):
         assembly=c.get('kind')=='assembly'
         if not assembly and c.get('material') not in materials:raise ValueError('missing component material')
         meshes=[] if assembly else geometry(c['geometry'])
+        surface_contract=c.get('surface_contract')
+        surface_report=None
+        if surface_contract is not None:
+            if assembly or c['geometry'].get('type')!='mesh':
+                raise ValueError('surface contract requires one explicit authored mesh: '+c['id'])
+            from surface_quality import inspect_geometry
+            surface_report=inspect_geometry(c['geometry'],surface_contract)
+            if not surface_report['passed']:
+                raise ValueError('surface contract failed: '+c['id']+': '+', '.join(surface_report['errors']))
         if not assembly and materials[c['material']].get('maps') and any('uvs' not in mesh for mesh in meshes):raise ValueError('textured component needs authored UVs: '+c['id'])
         contract=c.get('topology_contract')
         for mesh in meshes:
@@ -230,7 +252,8 @@ def _build(spec):
                 if not report['passed']:raise ValueError('topology contract failed: '+c['id']+': '+', '.join(report['errors']))
         components.append({'id':c['id'],'parent':c.get('parent'),'role':c.get('role',''),'material':c.get('material'),
                            'kind':c.get('kind','part'),'selectable':c.get('selectable',True),'explode_vector':c.get('explode_vector',[0,0,0]),'material_slots':c.get('material_slots',{}),
-                           'position':c.get('position',[0,0,0]),'rotation':c.get('rotation',[0,0,0]),'meshes':meshes,'topology_contract':contract})
+                           'position':c.get('position',[0,0,0]),'rotation':c.get('rotation',[0,0,0]),'meshes':meshes,'topology_contract':contract,
+                           **({'surface_report':surface_report} if surface_report is not None else {})})
     actions=s.get('actions',[]);aids=set();used=set()
     for a in actions:
         if a['id'] in aids or a['component_id'] in used or a['component_id'] not in nodes:raise ValueError('duplicate or missing action component')
@@ -260,6 +283,7 @@ def _build(spec):
 
 
 def emit_js(payload):
+    """Legacy standalone adapter for API compatibility; production writes via lightweight_delivery."""
     runtime=Path(__file__).resolve().parents[1]/'assets/scene-runtime.mjs'
     return "import * as THREE from 'three';\nconst data="+json.dumps(payload,separators=(',',':'))+";\n"+runtime.read_text()
 
@@ -270,7 +294,9 @@ def main():
         if Path(a.out).resolve()==Path(a.js).resolve():raise ValueError('JSON and JS outputs must be distinct')
         for name in (a.out,a.js):
             if Path(name).exists() or Path(name).resolve()==Path(a.spec).resolve():raise ValueError('output must be a new file')
-        payload=build(json.loads(Path(a.spec).read_text()));Path(a.out).write_text(json.dumps(payload));Path(a.js).write_text(emit_js(payload))
+        spec=json.loads(Path(a.spec).read_text());payload=build(spec);Path(a.out).write_text(json.dumps(payload))
+        from lightweight_delivery import write_runtime
+        write_runtime(Path(a.js).parent,payload,budget_bytes=spec.get('delivery_profile',{}).get('budget_bytes',50_000_000),runtime_name=Path(a.js).name)
         print(json.dumps({'passed':True,'components':len(payload['components']),'spec_sha256':payload['spec_sha256']}));return 0
     except (ValueError,OSError) as exc:print(json.dumps({'passed':False,'error':str(exc)}));return 1
 

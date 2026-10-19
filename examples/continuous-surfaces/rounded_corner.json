@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "component_id": "rounded_corner",
+  "source": {
+    "reference_id": "authored-synthetic-example",
+    "roi": [
+      0,
+      0,
+      100,
+      100
+    ]
+  },
+  "rationale": "Authored tool example only; not a measured photograph or production-approved asset.",
+  "method": "rounded_corner",
+  "parameters": {
+    "radii": [
+      0.65,
+      0.8,
+      0.6
+    ]
+  }
+}

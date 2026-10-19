@@ -1,8 +1,7 @@
-#!/usr/bin/env node
 // Local QA capture, no package installation, no external sites.
 import fs from 'node:fs';import path from 'node:path';import http from 'node:http';import crypto from 'node:crypto';import {pathToFileURL} from 'node:url';
 const a=Object.fromEntries(process.argv.slice(2).reduce((r,v,i,all)=>{if(v.startsWith('--'))r.push([v.slice(2),all[i+1]]);return r},[]));
-if(!a.bundle||!a.out||!a['playwright-module'])throw Error('--bundle --out --playwright-module required; optional --browser --poses closed,half,open');
+if(!a.bundle||!a.out||!a['playwright-module'])throw Error('--bundle --out --playwright-module required; optional --browser --poses closed,half,open --modes beauty,gray,mask,zebra,grazing');
 const root=fs.realpathSync(a.bundle),out=path.resolve(a.out);if(fs.existsSync(out))throw Error('Capture output exists');
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'bundle-manifest.json')));
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
@@ -13,10 +12,10 @@ try{
  const {chromium}=await import(pathToFileURL(path.resolve(a['playwright-module'])).href);browser=await chromium.launch({headless:true,...(a.browser?{executablePath:a.browser}:{}),args:['--enable-unsafe-swiftshader']});
  const p=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});
  await p.goto(`http://127.0.0.1:${server.address().port}/`,{waitUntil:'networkidle'});await p.waitForFunction(()=>window.modelReview?.ready,{timeout:30000});
- const config=await p.evaluate(()=>modelReview.config);const poses=(a.poses??'closed,half,open').split(',');fs.mkdirSync(out,{recursive:true});const captures=[];
- for(const view of Object.keys(config.cameras))for(const pose of poses)for(const mode of ['beauty','gray','mask']){
+ const config=await p.evaluate(()=>modelReview.config);const poses=(a.poses??'closed,half,open').split(',');const viewIds=a.views?a.views.split(','):Object.keys(config.cameras),modes=(a.modes??'beauty,gray,mask').split(',');if(!viewIds.length||new Set(viewIds).size!==viewIds.length||viewIds.some(v=>!Object.hasOwn(config.cameras,v)))throw Error('Unknown/duplicate capture view');if(!poses.length||poses.some(v=>!['closed','half','open'].includes(v))||!modes.length||new Set(modes).size!==modes.length||modes.some(v=>!['beauty','gray','mask','zebra','grazing'].includes(v)))throw Error('Invalid capture state');fs.mkdirSync(out,{recursive:true});const captures=[];
+ for(const view of viewIds)for(const pose of poses)for(const mode of modes){
   if(!/^[a-zA-Z0-9_-]+$/.test(view))throw Error('Camera ID must be filename safe');
-  const c=await p.evaluate(({view,mode,pose})=>modelReview.capture(view,mode,pose),{view,mode,pose});for(const check of c.connections??[])if(!check.passed)errors.push(`Connection ${check.id} failed at ${pose}: ${check.distance}`);const filename=`${view}-${pose}-${mode}.png`;const bytes=Buffer.from(c.png.split(',')[1],'base64');delete c.png;fs.writeFileSync(path.join(out,filename),bytes);captures.push({...c,file:filename,sha256:sha(bytes)});
+  const c=await p.evaluate(({view,mode,pose})=>modelReview.capture(view,mode,pose),{view,mode,pose});if(c.view!==view||c.mode!==mode||c.pose!==pose||c.width!==config.cameras[view].width||c.height!==config.cameras[view].height)throw Error('Capture API state identity mismatch');if(!(c.calls>0&&c.triangles>0))errors.push('Empty WebGL capture: '+view+'/'+mode+'/'+pose);for(const check of c.connections??[])if(!check.passed)errors.push(`Connection ${check.id} failed at ${pose}: ${check.distance}`);const filename=`${view}-${pose}-${mode}.png`;const bytes=Buffer.from(c.png.split(',')[1],'base64');delete c.png;fs.writeFileSync(path.join(out,filename),bytes);captures.push({...c,file:filename,sha256:sha(bytes)});
  }
  integrity();const result={spec_sha256:manifest.spec_sha256,cameras:config.cameras,passed:errors.length===0,scope:'actual WebGL capture; visual fidelity requires review',bundle_manifest_sha256:sha(fs.readFileSync(path.join(root,'bundle-manifest.json'))),errors,captures};fs.writeFileSync(path.join(out,'capture-report.json'),JSON.stringify(result,null,2));console.log(JSON.stringify({passed:result.passed,captures:captures.length,errors}));if(!result.passed)process.exitCode=2;
 }finally{if(browser)await browser.close();server.close()}

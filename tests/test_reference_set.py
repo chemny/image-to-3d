@@ -16,6 +16,10 @@ class ReferenceSetTests(unittest.TestCase):
         self.base=Path(self.tmp.name);Image.new('RGB',(32,24),'yellow').save(self.base/'input.png')
         self.root=self.base/'task';project.init(self.base/'input.png','generic',self.root)
         self.path=self.root/'spec.json';self.spec=project.read(self.path)
+        # Explicit historical-v1 fixture. New default-v2 behavior is tested separately.
+        self.spec['quality_contract']['reference_standard']=1
+        for name in ('project.json','state.json'):
+            record=project.read(self.root/name);record['reference_standard']=1;project.save(self.root/name,record)
         self.spec['references'][0]['approved']=True
         self.plan=gate.template();self.plan.update(status='ready',strategy='reuse',reuse_reason='Synthetic unit test fixture only')
         self.plan['required_views']=[{'id':'front','reference_ids':['original']}]
@@ -107,6 +111,10 @@ class ReferenceSetTests(unittest.TestCase):
         from test_project import fixture
         from unittest.mock import patch
         task=fixture(self.base/'export-case');spec=project.read(task/'spec.json')
+        # This test isolates legacy reference relocation, not new whole-form approval.
+        spec['quality_contract'].pop('foundation_standard',None);spec.pop('foundation',None)
+        for name in ('project.json','state.json'):
+            meta=project.read(task/name);meta.pop('foundation_standard',None);project.save(task/name,meta)
         spec['references'][0].update(origin='original',approved=True)
         analysis=project.read(task/'analysis.json');analysis['references'][0]['origin']='original';project.save(task/'analysis.json',analysis)
         (task/'manual.txt').write_text('Synthetic outline review artifact for exporter test only')

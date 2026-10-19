@@ -1,5 +1,4 @@
 """Synthetic software tests; no image reconstruction or fidelity acceptance."""
-import os
 import functools
 import http.server
 import json
@@ -153,7 +152,7 @@ class AssetRuntime(unittest.TestCase):
             print('Node asset runtime:', result.stdout.strip())
 
     def test_browser_runtime(self):
-        chrome = next((p for p in [os.environ.get('CHROME_EXECUTABLE'), shutil.which('google-chrome'), shutil.which('chromium'), shutil.which('chrome')] if p and Path(p).exists()), None)
+        chrome = next((p for p in [shutil.which('google-chrome'), shutil.which('chromium'), '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'] if p and Path(p).exists()), None)
         if not chrome:
             self.skipTest('Chrome unavailable; browser runtime and WebGL not executed')
         with tempfile.TemporaryDirectory() as temp:

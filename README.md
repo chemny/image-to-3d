@@ -10,9 +10,9 @@ It works with vehicles, toys and other objects. The Agent interprets images and 
 
 ## Preview
 
-![Model rendered with Image to 3D](./assets/preview.png)
+![AI-retouched showcase based on six model screenshots: full-size SUV, electric SUV, electric MPV, sports car, cloth doll and teapot](./assets/preview-six-models-polished.png)
 
-Example model rendered in Three.js.
+AI-retouched presentation based on six actual model captures; it is not an unedited runtime screenshot. An [earlier unretouched render](assets/preview.png) is also available.
 
 ## Features
 
@@ -20,9 +20,12 @@ Example model rendered in Three.js.
 |---|---|
 | Reference-based modeling | Build a Three.js scene from a traceable component, material and camera specification. |
 | Reference preparation | Plan additional views and detail images, distinguish observations from inferred designs, and record approvals. |
-| Controlled local shapes | Generate explicit meshes from section lofts or outlined thick forms, with reproducible parameters. |
+| Controlled shapes and continuous surfaces | Build section lofts, rolled edges and transition patches; check actual mesh seams, profile turns and curvature direction changes. |
 | Visual comparison | Compare fixed-camera renders, silhouettes and geometry-bound landmarks without silently warping references. |
 | Editable parts | Select, recolor, replace, separate and restore components when the asset contract supports those operations. |
+| Defect diagnosis and mounting checks | Separate geometry, normals and appearance issues; sample actual mounting roots against the intended host surface. |
+| Version continuity | Distinguish the model currently displayed from accepted samples, track inherited work, and verify integration evidence. |
+| Lightweight delivery | Load full geometry once, deduplicate resources and losslessly compress display data; report asset budgets without automatic decimation. |
 | Asset delivery | Export GLB and preserve sources and review evidence; optionally check actual Blender imports. |
 
 ## Installation
@@ -33,10 +36,12 @@ The core runs locally. Additional image generation and browser or Blender checks
 
 | Item | Requirement |
 |---|---|
-| Agent client | Codex on macOS. |
-| Core runtime | Python 3.10 or later with image-processing support. |
+| Agent client | Tested locally with Codex on macOS. Claude Code can use the host-neutral instructions, but has not been freshly runtime-tested for this release. |
+| Core runtime | Python 3.10 or later, Pillow and NumPy. |
 | Preview and capture | A modern browser; automated capture also needs Node.js and Playwright. |
 | Optional features | Host image generation for supplemental views; Blender for import verification. |
+
+Windows has not been runtime-tested for this release. Browser and Blender executable paths must be supplied for the target machine; macOS path examples are not portable defaults.
 
 The existing vehicle-page adapter additionally requires the separate vehicle-configurator skill; generic models do not.
 
@@ -66,6 +71,10 @@ You receive a local model preview and its specification and review files. Inspec
 
 > The wing is too flat. Keep the camera, materials and other parts unchanged, rebuild its thickness and root, and compare the original and side views.
 
+### Continue an existing model
+
+> First verify which version this case actually loads. Preserve the shape changes I already accepted and the current materials and controls. Improve the body transition, show the before-and-after comparison, and keep the baseline wherever the result regresses.
+
 ### Prepare reusable assets
 
 > Prepare this reviewed model for Three.js and GLB. Check part selection, color changes and disassembly. If Blender is available, verify the import too.
@@ -76,7 +85,9 @@ You receive a local model preview and its specification and review files. Inspec
 2. Author the Spec: components, geometry, materials, cameras, relationships and real observation bindings.
 3. Build local forms with `form_construction.py`; `construction_plan.py` connects recipes to actual meshes and protected parts.
 4. Use `project.py` to build, capture, compare and review. `reference_set.py` checks reference records; `anchor_evidence.py` projects real geometry; `workflow.py` enforces evidence identity and stage requirements.
-5. Use the asset checks and exchange tools to verify supported interactions and export. A diagnostic model is not an accepted delivery.
+5. Use `surface_attachment.py` for declared mounting-root samples and aperture rays, and `surface_quality.py` for actual mesh continuity checks. Defect triage remains evidence-driven Agent judgment, not automatic image diagnosis.
+6. Reuse `adoption_check.py` to assess recorded local adoption decisions; `version_handoff.py` validates version, inheritance and browser evidence records. It does not launch browsers or automatically hook into build/export.
+7. Use the asset checks, `lightweight_delivery.py` and exchange tools to verify supported interactions, lossless transport and export. A diagnostic model is not an accepted delivery. Final case integration uses the project’s existing interface.
 
 The bundled tools validate declared data and geometry. They do not automatically judge whether every picture or shape is correct. Scope, source evidence and human visual review remain necessary. Parallel Agents can split work under the collaboration contract when the host supports them.
 
@@ -84,6 +95,7 @@ The bundled tools validate declared data and geometry. They do not automatically
 
 ```text
 SKILL.md       Agent entry point
+requirements.txt Core Python dependencies
 agents/        Client display metadata
 scripts/       Construction, project, review and exchange tools
 references/    Modeling, reference and delivery standards
@@ -94,6 +106,8 @@ tests/         Software and optional runtime regression checks
 
 Start with [the execution guide](references/unified-execution.md), [reference preparation](references/reference-set-standard.md), [local construction](references/form-construction.md), and [asset exchange](references/asset-exchange.md). The examples test functionality; they are not photo-reconstruction benchmarks.
 
+
+For existing-model work, see [defect triage](references/defect-triage.md), [repair and root attachment contracts](references/repair-contract.md), [continuous surfaces](references/continuous-surfaces.md), [version continuity and case integration](references/presentation-delivery.md), and [lightweight delivery](references/lightweight-delivery.md).
 
 Additional contracts: [legacy interface notes](references/implementation-contract.md) and [Spec and evidence](references/spec-and-evidence.md).
 

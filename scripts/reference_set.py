@@ -6,7 +6,10 @@ from pathlib import Path
 from workflow import read, digest, require, nonempty
 
 
-def template():
+def template(version=1):
+    if version==2:
+        from reference_admission import template as common
+        return common()
     return {'version':1,'status':'pending','strategy':'generate','reuse_reason':'',
             'required_views':[],'critical_components':[],'sources':[],
             'unresolved_conflicts':[], 'consistency_review':{'verdict':'pending','method':'visual','reviewer':'','rationale':'','reference_hashes':{},'artifacts':[]}}
@@ -14,7 +17,8 @@ def template():
 
 def validate(spec_path, stage='references'):
     spec_path=Path(spec_path).resolve();spec=read(spec_path)
-    if spec.get('quality_contract',{}).get('reference_standard') != 1:
+    standard=spec.get('quality_contract',{}).get('reference_standard')
+    if standard not in (1,2):
         return {'passed':True,'certified':False,'scope':'legacy; reference standard not assessed'}
     base=spec_path.parent;name=spec.get('reference_plan')
     require(nonempty(name) and not Path(name).is_absolute(),'reference_plan relative path required')
@@ -24,7 +28,7 @@ def validate(spec_path, stage='references'):
         path=item['path'];require(not Path(path).is_absolute(),'evidence paths must be spec-relative')
         require(resources.get(path)==item.get('sha256') and item.get('sha256')==digest(base/path),'reference evidence must be current and source-hashed: '+path)
     require(resources.get(name)==digest(base/name),'reference plan must be current and source-hashed')
-    plan=read(base/name);require(plan.get('version')==1,'unsupported reference plan')
+    plan=read(base/name);require(plan.get('version')==standard,'unsupported/mismatched reference plan')
     if stage=='intake':
         return {'passed':True,'certified':False,'scope':'draft reference plan registered'}
     require(plan.get('status')=='ready','reference plan pending')
@@ -95,7 +99,11 @@ def validate(spec_path, stage='references'):
     require(review.get('reference_hashes')=={k:r['sha256'] for k,r in refs.items()},'stale/incomplete consistency review reference identities')
     require(review.get('artifacts'),'visual consistency review artifacts required')
     for a in review['artifacts']:artifact(a)
-    return {'passed':True,'certified':False,'stage':stage,'views':len(views),'critical_components':len(parts),'manual_constraints':manual_count,'manual_review_required':bool(manual_count),'scope':'coverage, provenance and evidence identity; visual truth is not automatically certified'}
+    common={}
+    if standard==2:
+        from reference_admission import validate as validate_common
+        common=validate_common(spec,plan,stage,base)
+    return {'passed':True,'certified':False,'stage':stage,'views':len(views),'critical_components':len(parts),'manual_constraints':manual_count,'manual_review_required':bool(manual_count),'scope':'coverage, provenance and evidence identity; visual truth is not automatically certified',**common}
 
 
 def main():

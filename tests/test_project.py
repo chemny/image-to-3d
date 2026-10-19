@@ -14,6 +14,11 @@ def fixture(root):
     im=Image.new('RGB',(256,256),'white');ImageDraw.Draw(im).rectangle((80,85,175,170),fill='gray');im.save(root/'fixture.png')
     task=root/'task';p.init(root/'fixture.png','generic',task)
     s=p.read(task/'spec.json');s['quality_contract']['scope']='synthetic-software-test'
+    # Legacy build/export mechanics fixture; separate common-admission tests use v2 defaults.
+    from reference_set import template
+    s['quality_contract']['reference_standard']=1;p.save(task/'reference-plan.json',template())
+    for name in ('project.json','state.json'):
+        record=p.read(task/name);record['reference_standard']=1;p.save(task/name,record)
     s['references'][0].update(origin='synthetic',approved=False,provenance='Programmatically created software fixture, not a photograph or accepted design')
     s['parameters']={'x':{'value':0,'min':-.5,'max':.5}}
     s['materials']={'shell':{'color':'#99aabc','roughness':.5,'metalness':.2},'trim':{'color':'#333333','roughness':.8,'metalness':0}}
@@ -31,14 +36,14 @@ class ProjectTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup);self.root=Path(self.temp.name);self.task=fixture(self.root)
     def test_unreviewed_production_build_refused(self):
-        with self.assertRaisesRegex(ValueError,'Spec review'):p.build_project(self.task,self.root/'prod')
+        with self.assertRaisesRegex(ValueError,'actual primary components required'):p.build_project(self.task,self.root/'prod')
     def test_full_diagnostic_fit_build_chain(self):
         self.assertTrue(p.validate(self.task)['passed']);before=self.root/'before';p.build_project(self.task,before,True)
         fit=self.root/'fit.json';p.fit_project(self.task,fit,['x'],30,True);r=p.read(fit);self.assertLess(r['final_objective'],.01)
         p.adopt(self.task,fit);self.assertAlmostEqual(p.read(self.task/'spec.json')['parameters']['x']['value'],.2,places=3)
         after=self.root/'after';p.build_project(self.task,after,True)
         self.assertNotEqual(p.sha(before/'model.js'),p.sha(after/'model.js'))
-        with self.assertRaisesRegex(ValueError,'Delivery review'):p.export(self.task,after,self.root/'export')
+        with self.assertRaisesRegex(ValueError,'actual primary components required'):p.export(self.task,after,self.root/'export')
     def test_analysis_changes_invalidate_input(self):
         with (self.task/'analysis.json').open('a') as f:f.write(' ')
         with self.assertRaisesRegex(ValueError,'resource hash'):p.validate(self.task)
@@ -61,6 +66,9 @@ class ProjectTests(unittest.TestCase):
         with self.assertRaises(ValueError):p.adopt(self.task,out)
         self.assertEqual(before,(self.task/'spec.json').read_bytes())
     def test_export_archives_artifacts_and_relocates_inputs(self):
+        spec=p.read(self.task/'spec.json');spec['quality_contract'].pop('foundation_standard',None);spec.pop('foundation',None);p.save(self.task/'spec.json',spec)
+        for name in ('project.json','state.json'):
+            meta=p.read(self.task/name);meta.pop('foundation_standard',None);p.save(self.task/name,meta)
         from unittest.mock import patch
         bundle=self.root/'bundle';p.build_project(self.task,bundle,True)
         m=p.read(bundle/'bundle-manifest.json');m['diagnostic']=False;p.save(bundle/'bundle-manifest.json',m)

@@ -2,7 +2,9 @@
 
 This is an evidence tool, not an automatic shape reconstruction or visual approval.
 Use after the reference set is approved and before fitting. Preserve clean source images;
-the tool writes a separate 10-by-10 grid overlay and report into a new directory.
+use `project.py reference-grid` for a separate pixel grid (default 50 px).
+`reference_evidence.py grid` without `--pixel-step` is a coverage grid (default 3 by 3).
+`anchor_evidence.py` writes geometry-bound anchor overlays, not grids.
 
 ## Annotation contract, version 1
 

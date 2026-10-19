@@ -19,4 +19,9 @@ python3 scripts/asset_exchange.py payload.json --out model.glb --resource-root T
 
 Blender checker 实际调用 glTF importer，然后核对文件哈希、组件 ID、实际 mesh/material/camera/animation、静止姿态世界顶点包围盒。Blender 的 Z-up 坐标换回 glTF 坐标后比较（误差阈值 1e-4）。报告记录软件版本、对象父子关系、材质图片节点、动画名称与帧范围。报告需存在匹配 manifest 才通过；这不是仅解析 JSON 的假导入。结构检查不等于视觉审美、全部材质效果、开合碰撞、运行时脚本或图片高还原度验收。
 
-测试：`python3 -m unittest discover -s tests -p test_asset_exchange.py -v`。通过PATH找到Blender或设置BLENDER_EXECUTABLE时会真实执行 Blender roundtrip，否则该项显示 skip，不能报告已通过实际 Blender 验收。
+测试：`python3 -m unittest discover -s tests -p test_asset_exchange.py -v`。安装了 `/Applications/Blender.app` 时会真实执行 Blender roundtrip，否则该项显示 skip，不能报告已通过实际 Blender 验收。
+
+
+## 轻量展示交付
+
+接入 [轻量展示交付 v1](lightweight-delivery.md)：新建构建默认采用独立或锁定模板兼容的无损压缩数据，界面不重复加载完整几何。分别记录展示资产预算、解压规模及设备性能；现有功能、视觉、交换验证和采用质量阀保持有效，打包通过不代替这些结论。

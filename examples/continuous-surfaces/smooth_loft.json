@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "component_id": "smooth_loft",
+  "source": {
+    "reference_id": "authored-synthetic-example",
+    "roi": [
+      0,
+      0,
+      100,
+      100
+    ]
+  },
+  "rationale": "Authored tool example only; not a measured photograph or production-approved asset.",
+  "method": "smooth_loft",
+  "parameters": {
+    "sections": [
+      {
+        "center": [
+          0,
+          0,
+          0
+        ],
+        "radii": [
+          0.22,
+          0.22
+        ]
+      },
+      {
+        "center": [
+          0,
+          0.4,
+          0
+        ],
+        "radii": [
+          0.4,
+          0.32
+        ]
+      },
+      {
+        "center": [
+          0,
+          0.8,
+          0
+        ],
+        "radii": [
+          0.35,
+          0.3
+        ]
+      },
+      {
+        "center": [
+          0,
+          1.2,
+          0
+        ],
+        "radii": [
+          0.22,
+          0.22
+        ]
+      }
+    ],
+    "cap_depths": [
+      0.2,
+      0.2
+    ],
+    "max_chord_error": 0.001
+  }
+}

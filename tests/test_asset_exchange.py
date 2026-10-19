@@ -1,5 +1,3 @@
-import os
-import shutil
 import base64
 import hashlib
 import json
@@ -64,7 +62,7 @@ class ExchangeTests(unittest.TestCase):
         f=fixture();f['components'][1]['material_slots']={'body':'red','glass':'unknown'}
         with self.assertRaisesRegex(ValueError,'slots'):export_glb(f)
 
-    @unittest.skipUnless(os.environ.get('BLENDER_EXECUTABLE') or shutil.which('blender'),'Blender not installed')
+    @unittest.skipUnless(Path('/Applications/Blender.app/Contents/MacOS/Blender').exists(),'Blender not installed')
     def test_actual_blender_roundtrip(self):
         with tempfile.TemporaryDirectory() as td:
             out=Path(td,'fixture.glb');f=fixture();f['components'][0]['rotation']=[.2,.3,.1]
@@ -73,7 +71,7 @@ class ExchangeTests(unittest.TestCase):
             Path(td,'texture.png').write_bytes(png)
             f['materials']['red']['maps']={'map':{'path':'texture.png','sha256':hashlib.sha256(png).hexdigest(),'color_space':'srgb'}}
             export_glb(f,out,resource_root=td)
-            result=subprocess.run([os.environ.get('BLENDER_EXECUTABLE') or shutil.which('blender'),'--background','--python',str(Path(__file__).resolve().parents[1]/'scripts/blender_asset_check.py'),'--','--glb',str(out),'--out',str(Path(td,'check.json'))],capture_output=True,text=True,timeout=120)
+            result=subprocess.run(['/Applications/Blender.app/Contents/MacOS/Blender','--background','--python',str(Path(__file__).resolve().parents[1]/'scripts/blender_asset_check.py'),'--','--glb',str(out),'--out',str(Path(td,'check.json'))],capture_output=True,text=True,timeout=120)
             self.assertEqual(result.returncode,0,result.stdout+result.stderr)
             check=json.loads(Path(td,'check.json').read_text());self.assertTrue(check['passed'],check)
             self.assertEqual(check['errors'],[])

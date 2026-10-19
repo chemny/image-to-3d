@@ -143,13 +143,14 @@ def analyze(spec, parameter_ids=None):
             'scope': 'local finite-difference diagnostic only; rank is not global identifiability or visual acceptance'}
 
 
-def fit(spec, parameter_ids, iterations=60):
+def fit(spec, parameter_ids, iterations=60, candidate_guard=None, predictor=None):
     bounds(spec, parameter_ids)
     require(type(iterations) is int and iterations > 0, 'iterations must be positive integer')
     observed = {p for o in checked_observations(spec) if o['role']=='calibration' for p in o['parameter_ids']}
     require(set(parameter_ids) <= observed, 'fitting parameter has no calibration observation binding')
     current = copy.deepcopy(spec)
-    initial_rows = predictions(current, 'calibration'); initial = objective(initial_rows)
+    predict = predictor or predictions
+    initial_rows = predict(current, 'calibration'); initial = objective(initial_rows)
     require(all(type(o.get('protection_tolerance_px', .01)) in (int,float) and math.isfinite(o.get('protection_tolerance_px', .01)) and o.get('protection_tolerance_px', .01) >= 0 for o in checked_observations(spec) if o.get('protected')), 'invalid protection tolerance')
     protected = {o['id']: initial_rows[o['id']]['error_px'] + o.get('protection_tolerance_px', .01) for o in checked_observations(spec) if o.get('protected')}
     require(all(math.isfinite(v) and v >= 0 for v in protected.values()), 'invalid protection tolerance')
@@ -164,7 +165,8 @@ def fit(spec, parameter_ids, iterations=60):
                 if value == p['value']: continue
                 p['value'] = value
                 try:
-                    rows = predictions(candidate, 'calibration')
+                    if candidate_guard is not None:candidate_guard(candidate)
+                    rows = predict(candidate, 'calibration')
                     if any(rows[k]['error_px'] > limit for k,limit in protected.items()):
                         journal.append({'iteration':iteration,'parameter':name,'value':value,'accepted':False,'reason':'protected landmark regression'}); continue
                     candidate_score = objective(rows)
@@ -178,7 +180,7 @@ def fit(spec, parameter_ids, iterations=60):
         if max(steps.values()) < 1e-8: break
     # Held-out points are computed only after search, never used for choosing candidates.
     return {'spec':current, 'initial_objective':initial, 'final_objective':score,
-            'calibration':predictions(current,'calibration'), 'validation':predictions(current,'validation'),
+            'calibration':predict(current,'calibration'), 'validation':predict(current,'validation'),
             'journal':journal,'accepted_steps':accepted,
             'limits':['bounded coordinate search; no global-optimum guarantee','pixel targets must be supplied by observation','no visual quality pass or automatic calibration certification']}
 

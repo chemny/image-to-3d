@@ -46,6 +46,10 @@ def nonempty(value):
 def validate_spec(path):
     path = Path(path).resolve()
     spec = read(path)
+    import repair_project
+    repair_project.policy(path)
+    import shape_foundation
+    shape_foundation.policy(path)
     require(spec.get('schema_version') == 1, 'unsupported schema_version')
     require(nonempty(spec.get('id')), 'missing id')
     require(spec.get('domain') in ('generic', 'vehicle'), 'invalid domain')
@@ -126,8 +130,9 @@ def validate_spec(path):
         require(nonempty(check.get('kind')) and isinstance(check.get('required'), bool), 'check kind/required missing')
         require(check.get('stage', 'review') in STAGES, 'invalid check stage')
     quality = spec.get('quality_contract', {})
-    require('reference_standard' not in quality or (type(quality['reference_standard']) == int and quality['reference_standard'] == 1), 'unsupported reference standard')
-    if quality.get('reference_standard') == 1:
+    require('foundation_standard' not in quality or (type(quality['foundation_standard'])==int and quality['foundation_standard']==1),'unsupported foundation standard')
+    require('reference_standard' not in quality or (type(quality['reference_standard']) == int and quality['reference_standard'] in (1,2)), 'unsupported reference standard')
+    if quality.get('reference_standard') in (1,2):
         from reference_set import validate as validate_reference_set
         validate_reference_set(path, 'intake')
     require('production_standard' not in quality or (type(quality['production_standard']) == int and quality['production_standard'] == 1), 'unsupported production standard')
@@ -139,13 +144,14 @@ def validate_spec(path):
         from construction_plan import validate as validate_construction
         result = validate_construction(path)
         require(result["ok"], "construction plan: " + "; ".join(result["errors"]))
+    shape_foundation.contract(spec,strict=False)
     return spec, resources
 
 
 def reference_fingerprint(spec):
     """Only reference approval and task scope may survive explicit implementation rebase."""
     value = {key: spec.get(key) for key in ('id', 'domain', 'references', 'quality_contract')}
-    if spec.get('quality_contract', {}).get('reference_standard') == 1:
+    if spec.get('quality_contract', {}).get('reference_standard') in (1,2):
         value['reference_plan'] = spec.get('reference_plan')
         value['reference_evidence_sources'] = [r for r in spec.get('source_files', []) if r['path'] == spec.get('reference_plan')]
     return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
@@ -156,6 +162,9 @@ def validate_evidence(spec_path, evidence_path, stage, reused_reference_review=F
     if STAGES.index(stage) >= STAGES.index('references'):
         from reference_set import validate as validate_reference_set
         validate_reference_set(spec_path, 'references' if stage == 'references' else 'spec')
+    if STAGES.index(stage)>=STAGES.index('spec'):
+        from shape_foundation import contract
+        contract(spec)
     if STAGES.index(stage) >= STAGES.index('spec') and spec.get('quality_contract', {}).get('production_standard') == 1:
         require(spec.get('production_contract') is not None, 'production contract required before spec approval')
     if STAGES.index(stage) >= STAGES.index('body') and spec.get('production_contract') is not None:
@@ -165,8 +174,14 @@ def validate_evidence(spec_path, evidence_path, stage, reused_reference_review=F
         from construction_plan import validate as validate_construction
         result = validate_construction(spec_path, 'body')
         require(result['ok'], 'local construction review: ' + '; '.join(result['errors']))
+    if STAGES.index(stage)>=STAGES.index('body'):
+        import repair_project
+        repair_project.gate(spec_path,True)
     epath = Path(evidence_path).resolve()
     e = read(epath)
+    if STAGES.index(stage)>=STAGES.index('body'):
+        from shape_foundation import enabled, gate
+        if enabled(spec):gate(spec_path,True,e.get('foundation_review'))
     require(e.get('stage') == stage, 'evidence stage mismatch')
     require(e.get('verdict') == 'pass', 'explicit passing review required')
     require(e.get('acceptance') == 'quality_passed', 'baseline acceptance is not a quality pass')
@@ -215,6 +230,9 @@ def validate_evidence(spec_path, evidence_path, stage, reused_reference_review=F
     from production_evidence import validate as validate_views
     validate_production_evidence(spec, e, stage)
     validate_views(spec, e, stage, epath)
+    if STAGES.index(stage)>=STAGES.index('body') and spec.get('quality_contract',{}).get('reference_standard')==2:
+        from shape_acceptance import validate_review as validate_shape_review
+        validate_shape_review(spec_path,spec,read(Path(spec_path).parent/spec['reference_plan']),e,epath)
     if e.get("repair_record"):
         from repair_review import validate as validate_repair
         require(e["repair_record"] in artifact_paths, "repair record must be a hashed artifact")
@@ -255,7 +273,7 @@ def status(state_path):
 def init(spec_path, state_path):
     spec, _ = validate_spec(spec_path)
     require(not Path(state_path).exists(), 'state already exists; use status/next to resume')
-    save(state_path, {'schema_version': 1, 'spec_path': str(Path(spec_path).resolve()), 'stages': {}, 'reference_standard': spec.get('quality_contract', {}).get('reference_standard'), 'production_standard': spec.get('quality_contract', {}).get('production_standard')})
+    save(state_path, {'schema_version': 1, 'spec_path': str(Path(spec_path).resolve()), 'stages': {}, 'reference_standard': spec.get('quality_contract', {}).get('reference_standard'), 'production_standard': spec.get('quality_contract', {}).get('production_standard'), 'foundation_standard':spec.get('quality_contract',{}).get('foundation_standard')})
     return status(state_path)
 
 

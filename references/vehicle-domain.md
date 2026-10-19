@@ -19,3 +19,7 @@ Spec 的 vehicle_bindings 声明 paint（实际材质ID）、wheels（三组实�
 `project.py build --project TASK --vehicle-config VEHICLE.json --vehicle-skill VEHICLE_SKILL --out NEW_WEB` 使用该skill的locked_configurator构建，要求对应参考资源齐全及partBindings一致，拒绝假轮毂/假灯/缺失动作。该页面的HTML/CSS/app.js来自锁定模板，不由模型代码重建。校对捕获先用同Spec的generic-review，产品页另做布局/功能回归，不能把两种测试混为一谈。
 
 完整字段/函数见integration-contract-v2.md；检查材料串色、四轮variant可见性、实际灯面发光、动作终点/关闭复位、弹窗事件隔离、保存恢复与资源身份。旧车辆工具产生的门禁/结构报告作为core对应阶段的artifact，不启动第二套新项目流程状态。旧GLB修复任务继续原路，不自动迁移或覆盖。
+
+## 车辆修复扩展
+
+复用通用repair契约，以轮径/轴距/悬长作比例锚点，同时约束车舱、侧窗、中央后窗/溜背、柱面、轮肩与开口。轮胎/轮圈通常是刚性保护件，车身可局部变形；边界按实际设计分别控制。已校准轮心不证明肩线/曲面达标。修复动作机构另核实际枢轴及全行程，不因静态贴合通过而免检。

@@ -1,5 +1,7 @@
 # 建模参考集标准
 
+新项目及新修复使用 [共用参考准入 v2](common-reference-admission.md) 的任务/区域/机位/特征扩展；本文v1来源与生成设计确认规则继续适用。
+
 本规范适用于通用对象。目标是给轮廓、体积和连接提供依据，不以凑够固定图数代替覆盖检查。参考准备是必经阶段；单图任务默认规划补充视角与关键局部。已有充分参考可复用，但须逐项记录覆盖和理由，不因“简单”自动跳过。
 
 ## 制作顺序
@@ -36,7 +38,7 @@ reference-check只能验证记录、身份和覆盖声明，不会自动看懂�
 
 ## 实际检查入口与数据
 
-新项目init自动生成reference-plan.json，并设置reference_standard=1固定到project/state；历史项目为legacy，不追认新版认证。
+0.8起新项目init自动生成v2 reference-plan.json，并设置reference_standard=2固定到project/state；旧v1记录仍可读取，历史项目不追认新版认证，新修复先迁移共用准入。
 
 ```
 python3 scripts/project.py reference-check --project TASK --stage references

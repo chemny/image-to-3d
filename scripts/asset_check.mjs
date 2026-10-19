@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 // Local QA capture, no package installation, no external sites.
 import fs from 'node:fs';import path from 'node:path';import http from 'node:http';import crypto from 'node:crypto';import {pathToFileURL} from 'node:url';
 const a=Object.fromEntries(process.argv.slice(2).reduce((r,v,i,all)=>{if(v.startsWith('--'))r.push([v.slice(2),all[i+1]]);return r},[]));
@@ -11,10 +10,10 @@ const server=http.createServer((req,res)=>{try{const n=decodeURIComponent(new UR
 await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;
 try{
  const {chromium}=await import(pathToFileURL(path.resolve(a['playwright-module'])).href);browser=await chromium.launch({headless:true,...(a.browser?{executablePath:a.browser}:{}),args:['--enable-unsafe-swiftshader']});
- const p=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});
+ const p=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[],requests=[];p.on('response',r=>requests.push({path:new URL(r.url()).pathname,bytes:Number(r.headers()['content-length'])||null}));p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});
  await p.goto(`http://127.0.0.1:${server.address().port}/`,{waitUntil:'networkidle'});await p.waitForFunction(()=>window.modelReview?.ready,{timeout:30000});
  const result=await p.evaluate(async()=>{
- const m=modelReview.model,d=await fetch('./scene.json').then(r=>r.json()),checks=[],errors=[];
+ const m=modelReview.model,d=(await import('./model.js')).sceneMetadata??await fetch('./scene.json').then(r=>r.json()),checks=[],errors=[];
  const check=(name,fn)=>{try{fn();checks.push({name,passed:true})}catch(e){checks.push({name,passed:false,error:e.message});errors.push(name+': '+e.message)}};
  const assert=(v,msg)=>{if(!v)throw Error(msg)};
  await m.ready;m.reset();m.root.updateMatrixWorld(true);
@@ -22,7 +21,7 @@ try{
  for(const c of d.components){
   check('component:'+c.id,()=>assert(m.nodes[c.id]&&m.nodes[c.id].name===c.id,'missing identity'));
   if(c.selectable!==false)check('select:'+c.id,()=>assert(m.select(c.id).id===c.id,'selection failed'));
-  if(c.meshes.length){check('material-isolation:'+c.id,()=>{const before=Object.fromEntries(Object.entries(m.materials).map(([id,x])=>[id,x.color.getHex()]));m.setColor(c.id,'#123456');assert(m.nodes[c.id].children.filter(x=>x.isMesh).every(x=>x.material.color.getHex()===0x123456),'target not changed');assert(Object.entries(m.materials).every(([id,x])=>x.color.getHex()===before[id]),'shared material changed');m.reset();});
+  if(c.mesh_count??c.meshes?.length){check('material-isolation:'+c.id,()=>{const before=Object.fromEntries(Object.entries(m.materials).map(([id,x])=>[id,x.color.getHex()]));m.setColor(c.id,'#123456');assert(m.nodes[c.id].children.filter(x=>x.isMesh).every(x=>x.material.color.getHex()===0x123456),'target not changed');assert(Object.entries(m.materials).every(([id,x])=>x.color.getHex()===before[id]),'shared material changed');m.reset();});
    for(const [slot,id] of Object.entries(c.material_slots||{}))check('material-slot:'+c.id+':'+slot,()=>{m.setMaterial(c.id,slot);assert(m.nodes[c.id].children.filter(x=>x.isMesh).every(x=>x.material===m.materials[id]),'wrong slot');m.reset();});
   }
  }
@@ -35,6 +34,7 @@ try{
  for(const op of d.asset_contract?.required_operations||[])check('required:'+op,()=>assert(performed[op],'operation untested'));
  return {passed:errors.length===0,checks,errors,performed,scope:'browser runtime behavior only',visual_acceptance:false,spec_sha256:d.spec_sha256};
  });
+ if(manifest.delivery_layout){const layout=JSON.parse(fs.readFileSync(path.join(root,manifest.delivery_layout)));const full=requests.filter(r=>r.path==='/'+layout.data.path).length;const duplicates=requests.filter(r=>r.path==='/scene.json'||r.path==='/engineering/scene.json');result.delivery_network={storage:layout.storage,full_geometry_requests:full,requests,duplicate_geometry_requests:duplicates.length};if((layout.storage==='external'&&full!==1)||duplicates.length){result.passed=false;result.errors.push('Duplicate or missing geometry network load');}}
  fs.mkdirSync(out,{recursive:true});
  const screenshots=[];for(const [name,amount] of [['assembled',0],['exploded',1]]){await p.evaluate(amount=>{modelReview.model.explode(amount);modelReview.renderer.render(modelReview.scene,modelReview.camera)},amount);const f=name+'.png';await p.screenshot({path:path.join(out,f),fullPage:true});screenshots.push({file:f,sha256:sha(fs.readFileSync(path.join(out,f)))});}
  integrity();result.errors.push(...errors);result.passed&&=errors.length===0;result.bundle_manifest_sha256=sha(fs.readFileSync(path.join(root,'bundle-manifest.json')));result.screenshots=screenshots;

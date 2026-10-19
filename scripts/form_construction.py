@@ -146,6 +146,14 @@ def compile_recipe(recipe):
     if min(roi[:2])<0 or min(roi[2:])<=0:raise ValueError('ROI requires nonnegative x/y and positive width/height')
     if 'evidence_path' in source and (not isinstance(source['evidence_path'],str) or not source['evidence_path'].strip()):raise ValueError('invalid evidence_path')
     method=recipe.get('method')
+    from surface_construction import METHODS, compile_surface
+    if method in METHODS:
+        result=compile_surface(recipe)
+        report=result['report']
+        report.update(component_id=recipe['component_id'],recipe_sha256=report['parameters_hash'],
+                      visual_accuracy_checked=False,source_image_verified=False,
+                      limitations=['Authored geometry; reference likeness, assembled continuity and collisions require separate checks.'])
+        return result
     if method not in ('loft','thick_outline'):raise ValueError('unsupported construction method')
     positions,triangles,details=(_loft if method=='loft' else _thick_outline)(recipe.get('parameters'))
     mesh=normmesh(positions,triangles)
@@ -174,6 +182,7 @@ def main():
         result=compile_recipe(json.loads(Path(args.recipe).read_text()))
         if Path(args.out).resolve()==Path(args.report).resolve():raise ValueError('output and report paths must differ')
         if Path(args.recipe).resolve() in (Path(args.out).resolve(),Path(args.report).resolve()):raise ValueError('cannot overwrite recipe input')
+        if Path(args.out).exists() or Path(args.report).exists():raise ValueError('output exists; preserve baseline and use new filenames')
         for name,key in ((args.out,'geometry'),(args.report,'report')):
             Path(name).write_text(json.dumps(result[key],indent=2,allow_nan=False)+'\n')
         print(json.dumps({'component_id':result['report']['component_id'],'triangles':result['report']['triangle_count'],'visual_accuracy_checked':False}));return 0

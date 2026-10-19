@@ -24,7 +24,11 @@ def read(path):
 
 def compiler_hash():
     import form_construction
-    return file_hash(form_construction.__file__)
+    # A delegated geometry compiler must be part of the same immutable receipt.
+    # Include direct producers/mesh dependencies, not only this dispatcher's bytes.
+    directory=Path(form_construction.__file__).parent
+    return digest({name:file_hash(directory/name) for name in
+                   ('form_construction.py','surface_construction.py','scene_build.py','mesh_checks.py','bezier_network.py')})
 
 
 def compile_geometry(recipe):

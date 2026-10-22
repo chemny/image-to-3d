@@ -61,3 +61,21 @@ v0.3开发回归增加 car-wheel / bicycle / motorcycle / toy 四个明确设计
 - 缺陷分诊复用上面注入的测量失败及既有 topology、surface_quality、local_deformation_guard 回归；不宣称新增自动图像诊断或完整重叠面/碰撞求解器。
 
 运行：`PYTHONPATH=scripts:tests python3 -m unittest test_engineering_regression test_surface_attachment test_surface_quality test_surface_construction test_local_deformation_guard test_model_repair test_repair_project test_mesh_checks -v`。全部在临时/合成数据上执行，不修改案例模型。根部/曲率上限按任务选择，旧的无此声明项目保持旧行为（空表面检查调用现在明确拒绝）。
+
+## 版本生命周期回归
+
+`PYTHONPATH=scripts python3 -m unittest discover -s tests -p 'test_version_lifecycle.py' -v`：保护正式/施工/已接受样件/回退/来源/证据/未知单元，沿依赖图保护共享资源；引用线索及覆盖未核实禁止清理；陈旧文件/入口/登记/退休证据及改写计划拒绝；路径逃逸、重叠、符号/硬链接和并发锁拒绝；实际临时文件隔离、部分中断恢复、内容损坏/目标占用拒绝、重复恢复及大小统计。inventory 永远不给清理授权。测试仅操作临时目录，不移动现有案例；真实清理后仍按案例接入规则做浏览器与回退验证。
+
+## 生命周期事务 v2 回归
+
+复用 test_version_lifecycle.py，新增 test_lifecycle_transaction.py 验证完整操作闭环：HTML不加载旧脚本/模型、JSON历史内容保留、预览只读、当前/回退/已接受保护、原入口与新sidecar完整恢复（内容/权限/mtime）、部分隔离/入口修改/恢复中断与重试、新工作覆盖冲突、旧v1载荷恢复兼容、同事务报告与检查ID/证据哈希、保护与新引用变化拒绝、精确清单永久删除/中断续删、陌生文件拒绝、永久删除开始后恢复拒绝、锁/链接/越界/陈旧及改写计划/输出路径保护。
+
+运行：`PYTHONPATH=scripts:tests python3 -m unittest test_version_lifecycle test_lifecycle_transaction -v`。仅临时目录删除，不操作已有案例。
+
+真实网页回归使用显式配置、临时HTTP目录：`python3 tests/lifecycle_browser_fixture.py --node NODE --playwright PLAYWRIGHT_MODULE --browser CHROME --out NEW_RESULT.json`；实际检查原入口加载载荷、退役入口不请求载荷、恢复后旧入口再次加载。缺少运行环境时不自动安装，不宣称浏览器通过。该fixture不是生产案例或视觉质量验收，purge仍需调用者提交真实项目检查。
+
+## 运行时增量回归
+
+`PYTHONPATH=scripts:tests python3 -m unittest test_runtime_guards -v` 验证时序跳变/层间距、局部修复的消费端尺度、声明依赖身份/包缺项、共享注册局部回退与冲突拒绝。所有文件操作均在临时目录；CLI只读，回退只返回投影。样本覆盖移动相机但世界基准不变、状态分组、缺序列/重复时间/NaN、错误accessor边界、超界附件、重复缩放、保护锚点、模型未变而共享脚本变化、漏打包未跟踪/动态模块、路径逃逸与符号链接。
+
+这些测试验证数值和记录校验，不证明自动识别任意闪烁、完整发现JS依赖或真实生产回退成功。实际任务继续用既有浏览器捕获和采用审查，对加载完成、固定/移动机位、场景切换、开合/复位做视觉和功能复测；本轮不重写模型、不重复已有几何/生命周期测试。字段与命令见 [运行时校验](runtime-guards.md)。

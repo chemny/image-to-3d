@@ -28,6 +28,10 @@ AI-retouched presentation based on six actual model captures; it is not an unedi
 | Lightweight delivery | Load full geometry once, deduplicate resources and losslessly compress display data; report asset budgets without automatic decimation. |
 | Asset delivery | Export GLB and preserve sources and review evidence; optionally check actual Blender imports. |
 
+Version 0.12.5 adds [version lifecycle management](references/version-lifecycle.md): dependency-aware cleanup previews, recoverable quarantine, explicit entry retirement and separately approved permanent deletion. [Runtime guards](references/runtime-guards.md) check recorded temporal stability, normalization and world anchors, declared release dependencies, and conflict-safe scoped rollback previews. These tools do not automatically capture a browser, discover every dependency, modify a registry or publish.
+
+The local macOS regression suite passed 712 tests, including 36 runtime-guard tests; this is software validation, not a visual reconstruction benchmark or fresh Windows/Claude Code certification.
+
 ## Installation
 
 ### Requirements

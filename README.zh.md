@@ -10,9 +10,9 @@ Image to 3D 是一个根据物体参考图构建可编辑 Three.js 模型的 Age
 
 ## 效果预览
 
-![基于六个模型截图的 AI 润色展示图：全尺寸 SUV、纯电 SUV、纯电 MPV、纯电超跑、布娃娃和茶壶](./assets/preview-six-models-polished.png)
+![六个模型的 AI 润色展厅主图：全尺寸 SUV、纯电 SUV、纯电超跑、布娃娃、茶壶和玩具小鸡](./assets/preview-six-models-polished.png)
 
-基于六个实际模型截图制作的 AI 润色展示图，一行三个，共两行；不是未经处理的运行截图。另可查看[早期未润色渲染](assets/preview.png)。
+与个人网站一致的六模型 AI 润色展厅主图，并非未经处理的模型运行截图。另可查看[早期未润色渲染](assets/preview.png)。
 
 ## 核心功能
 

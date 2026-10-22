@@ -10,9 +10,9 @@ It works with vehicles, toys and other objects. The Agent interprets images and 
 
 ## Preview
 
-![AI-retouched showcase based on six model screenshots: full-size SUV, electric SUV, electric MPV, sports car, cloth doll and teapot](./assets/preview-six-models-polished.png)
+![AI-retouched exhibition showcase: full-size SUV, electric SUV, sports car, cloth doll, teapot and toy chick](./assets/preview-six-models-polished.png)
 
-AI-retouched presentation based on six actual model captures; it is not an unedited runtime screenshot. An [earlier unretouched render](assets/preview.png) is also available.
+AI-retouched exhibition illustration of six models, also used on the personal website; it is not an unedited runtime screenshot. An [earlier unretouched render](assets/preview.png) is also available.
 
 ## Features
 

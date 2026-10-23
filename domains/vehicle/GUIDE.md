@@ -1,6 +1,6 @@
 # 内置车辆模块
 
-由原 vehicle-configurator 0.4.0-local 的可复用工具和模板迁入。独立Skill不再是依赖；不复制其独立SKILL.md、Agent发现配置、发布报告或大型案例模型。来源文件摘要保存在本次项目迁移记录；代码及Three.js许可随模块保留。
+由原 vehicle-configurator 0.4.0-local 的可复用工具和模板迁入。独立Skill不再是依赖；不复制其独立SKILL.md、Agent发现配置、发布报告或大型案例模型。来源文件摘要保存在本次项目迁移记录；Three.js许可随模块保留。
 
 图片新建、从图修复继续顶层SKILL.md及project.py唯一状态流程。已有GLB/.blend资产整理、材质索引保护与配置器模板使用本模块，不为同一图片项目新建第二份旧project.json或复制阶段通过标记。使用历史资产工具时原project.json是该资产任务记录，不是顶层图片项目的新审批状态。
 

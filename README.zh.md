@@ -123,7 +123,7 @@ tests/         软件及可选运行环境回归检查
 
 ## 许可
 
-项目代码使用 [MIT 许可](LICENSE)。随包提供的 Three.js 保留[自身 MIT 声明](assets/vendor/LICENSE)。参考图与用户提供的资产需具备相应使用权，不因代码许可而重新授权。规则来源见[来源映射](references/production-rule-sources.md)。
+随包提供的 Three.js 保留[自身 MIT 声明](assets/vendor/LICENSE)。参考图与用户提供的资产需具备相应使用权，不因本仓库公开而重新授权。规则来源见[来源映射](references/production-rule-sources.md)。
 
 ## 关于我
 

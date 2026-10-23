@@ -123,7 +123,7 @@ Additional contracts: [legacy interface notes](references/implementation-contrac
 
 ## License
 
-Project code is distributed under the [MIT License](LICENSE). Bundled Three.js retains its [own MIT notice](assets/vendor/LICENSE). Reference images and user-supplied assets require appropriate rights and are not relicensed by the code license. Rule provenance is recorded in [the source mapping](references/production-rule-sources.md).
+Bundled Three.js retains its [own MIT notice](assets/vendor/LICENSE). Reference images and user-supplied assets require appropriate rights and are not relicensed by this repository. Rule provenance is recorded in [the source mapping](references/production-rule-sources.md).
 
 ## About Me
 

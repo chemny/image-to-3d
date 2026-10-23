@@ -156,8 +156,8 @@ def build_project(root,out,diagnostic=False,vehicle_config=None,vehicle_skill=No
     # All generated page dependencies are versioned; no mutation of current page.
     dest=Path(out).resolve();require(not dest.exists(),'Output exists; use a new version directory')
     if vehicle_config:
-        skill=Path(vehicle_skill).resolve() if vehicle_skill else Path.home()/'.agents/skills/vehicle-configurator'
-        require((skill/'scripts/locked_configurator.py').is_file(),'vehicle delivery skill missing; use --vehicle-skill')
+        skill=Path(vehicle_skill).resolve() if vehicle_skill else CORE/'domains/vehicle'
+        require((skill/'scripts/locked_configurator.py').is_file(),'built-in vehicle module missing; reinstall the complete Skill or explicitly use --vehicle-skill')
         cfg=read(vehicle_config);bindings=spec.get('vehicle_bindings',{})
         require(cfg.get('partBindings')==bindings.get('actions'),'vehicle config partBindings differ from actual model actions')
         # Validate strictly in Python and runtime factory; factory itself must be standalone.

@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "case": "Automotive Studio",
+  "original_model": {
+    "path": "original/model.glb",
+    "sha256": "be57714bb553141c51ce119e58733cb87eae7885ba26bfabef2527698d08bc3d",
+    "origin": "Original downloaded Tencent image-to-3D asset; matches historical import SHA-256"
+  },
+  "source_image": {
+    "path": "original/source-image.png",
+    "sha256": "87e5a110ebd444b9e99e4eabff26dacd4f0967aee17cbc7069df7a761dd53b6d",
+    "origin": "Source reference retained in historical project; exact generation-request association unverified"
+  },
+  "reference_images": [
+    {
+      "path": "original/reference-images/bottom-inferred.png",
+      "sha256": "8a0dac1e728499b8be3304b42d3d80032ee3525873414660d68c81c9e78ffb15",
+      "origin": "inferred",
+      "engineering_evidence": false
+    },
+    {
+      "path": "original/reference-images/front.png",
+      "sha256": "3d96f3ff908af9ee930e243c0a4a2f0c090697e6ee11ffe6a3bad0068ebb6f4f",
+      "origin": "generated",
+      "engineering_evidence": false
+    },
+    {
+      "path": "original/reference-images/left-45.png",
+      "sha256": "10e4cf1c44b07b7c61c273eb4c97fa1b211f629ea969fac5d8d238a7a7e79759",
+      "origin": "generated",
+      "engineering_evidence": false
+    },
+    {
+      "path": "original/reference-images/left-side.png",
+      "sha256": "ec189fc9d6ff0dc14e574a8409bed647d2ad5535bcb884312e3dc80d7c81eb0c",
+      "origin": "generated",
+      "engineering_evidence": false
+    },
+    {
+      "path": "original/reference-images/rear-45.png",
+      "sha256": "c34b310fdc96f2ec9c8764f1eba0ce3bee3b3dc1f54ab6057765751328abfabc",
+      "origin": "generated",
+      "engineering_evidence": false
+    },
+    {
+      "path": "original/reference-images/rear.png",
+      "sha256": "33da78a35f6346df2d05940eb6cc5814c9820ca856c0a012ab8f06bb84ed801e",
+      "origin": "generated",
+      "engineering_evidence": false
+    },
+    {
+      "path": "original/reference-images/right-45.png",
+      "sha256": "0f7593616fcdd355bf877ddbf17af2d2838be60b563cb5fd0273b77e9fcd375e",
+      "origin": "generated",
+      "engineering_evidence": false
+    },
+    {
+      "path": "original/reference-images/right-side.png",
+      "sha256": "050ed60caa0e553e676f9340f5eaf1e0f7fabdc6acb7a60aad01f978e102ce09",
+      "origin": "generated",
+      "engineering_evidence": false
+    },
+    {
+      "path": "original/reference-images/top.png",
+      "sha256": "83a4b2e0da4f4d0edd1a6af84200f86bfba6145834ef9d15c5bb8d15a697e00f",
+      "origin": "generated",
+      "engineering_evidence": false
+    }
+  ],
+  "final_model": {
+    "path": "final/model.glb",
+    "sha256": "7137d56b0fa00b7e0917aa5898cec2ffab809e162e8a5d0377a51281a61fcef5",
+    "origin": "Accepted historical V17 geometry with current Three.js configuration page; geometry unchanged during final alignment"
+  },
+  "publication_authorized": false,
+  "asset_redistribution_authorization": "not_established",
+  "omitted": [
+    "Historical intermediate meshes",
+    "Blender iteration masters and backups",
+    "Temporary screenshots",
+    "Logs and test outputs",
+    "Private absolute paths"
+  ]
+}

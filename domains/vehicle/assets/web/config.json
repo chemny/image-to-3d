@@ -1,0 +1,126 @@
+{
+  "title": "车辆选配器",
+  "description": "请先查看资产来源与验收记录；未确认结构属于推断。",
+  "model": "./model.glb",
+  "rotationY": 0,
+  "paintMaterials": [],
+  "paints": [
+    {
+      "label": "岩石灰",
+      "color": "#777a76",
+      "id": "gray"
+    },
+    {
+      "label": "珍珠白",
+      "color": "#eeeeea",
+      "id": "white"
+    },
+    {
+      "label": "曜石黑",
+      "color": "#171c21",
+      "id": "black"
+    },
+    {
+      "label": "深海蓝",
+      "color": "#24455b",
+      "id": "blue"
+    }
+  ],
+  "rims": [],
+  "doors": [],
+  "interiors": [],
+  "cameraDirection": [
+    1,
+    0.16,
+    1
+  ],
+  "schema_version": 2,
+  "asset": {
+    "id": "unbound",
+    "version": "unbound"
+  },
+  "paintTargets": [],
+  "runtimeDependencies": [],
+  "scenes": [
+    {
+      "id": "day",
+      "label": "自然光",
+      "background": "#e9e5de",
+      "floor": "#dedbd2",
+      "exposure": 0.82,
+      "hemi": 0.85,
+      "keyPower": 1.8,
+      "keyColor": "#ffffff",
+      "fillColor": "#e7edf2"
+    },
+    {
+      "id": "warm",
+      "label": "日落暖光",
+      "background": "#dfc9ae",
+      "floor": "#cbb699",
+      "exposure": 1,
+      "hemi": 1.15,
+      "keyPower": 3.1,
+      "keyColor": "#ffc68d",
+      "fillColor": "#b5c5e0"
+    },
+    {
+      "id": "studio",
+      "label": "深色展厅",
+      "background": "#454e49",
+      "floor": "#404843",
+      "exposure": 1.05,
+      "hemi": 0.8,
+      "keyPower": 3.2,
+      "keyColor": "#ffffff",
+      "fillColor": "#c4d7dc"
+    }
+  ],
+  "views": [
+    {
+      "id": "quarter",
+      "label": "正侧45°",
+      "direction": [
+        1,
+        0.16,
+        1
+      ]
+    },
+    {
+      "id": "left",
+      "label": "车头侧面",
+      "direction": [
+        1,
+        0.2,
+        0
+      ]
+    },
+    {
+      "id": "rear-quarter",
+      "label": "后侧45°",
+      "direction": [
+        1,
+        0.16,
+        -1
+      ]
+    },
+    {
+      "id": "rear",
+      "label": "车尾",
+      "direction": [
+        0,
+        0.2,
+        -1
+      ]
+    },
+    {
+      "id": "top",
+      "label": "车顶",
+      "direction": [
+        0,
+        1,
+        0.01
+      ]
+    }
+  ]
+}

@@ -24,7 +24,7 @@ class LightweightDeliveryTests(unittest.TestCase):
         ld.write_runtime(self.root,self.payload,locked=True)
         self.assertEqual(ld.read_payload(self.root),self.payload)
         import importlib.util
-        module_path=Path.home()/'.agents/skills/vehicle-configurator/scripts/locked_configurator.py'
+        module_path=Path(__file__).resolve().parents[1]/'domains/vehicle/scripts/locked_configurator.py'
         spec=importlib.util.spec_from_file_location('locked_factory',module_path);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
         self.assertEqual(m.adapter_errors((self.root/'model.js').read_text()),[])
     def test_tamper_and_wrong_decoded_hash_rejected(self):

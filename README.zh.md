@@ -28,34 +28,40 @@ Image to 3D 是一个根据物体参考图构建可编辑 Three.js 模型的 Age
 | 轻量交付 | 完整几何只加载一次，资源去重、默认无损压缩，超预算报告原因，不自动减面。 |
 | 资产交付 | 导出 GLB，保留来源与审查依据；可选验证实际 Blender 导入。 |
 
-0.12.5 新增[版本生命周期管理](references/version-lifecycle.md)：依赖清理预览、可恢复隔离、明确的旧入口退役，以及单独授权的永久删除。[运行时校验](references/runtime-guards.md)检查时序稳定性记录、归一化与世界锚点、声明的发布依赖，并生成拒绝冲突的局部回退预览；工具不会自动捕获浏览器、发现全部依赖、写注册表或发布。
+0.13.2 内置下述车辆模块，并保留[版本生命周期管理](references/version-lifecycle.md)：依赖清理预览、可恢复隔离、明确的旧入口退役，以及单独授权的永久删除。[运行时校验](references/runtime-guards.md)检查时序稳定性记录、归一化与世界锚点、声明的发布依赖，并生成拒绝冲突的局部回退预览；工具不会自动捕获浏览器、发现全部依赖、写注册表或发布。
 
-本地 macOS 软件回归共 712 项通过，其中运行时校验新增 36 项；测试数量不代表视觉还原质量，也不代表本轮已实测 Windows 或 Claude Code。
+本地 macOS 软件回归共 782 项通过，包含车辆模块迁移检查及 36 项运行时校验；测试数量不代表视觉还原质量，也不代表本轮已实测 Windows 或 Claude Code。
 
 ## 安装
 
-### 配置要求
+一键入口：**Mac运行install.command，Windows运行install.cmd**。先检测，缺必需依赖时列清单并确认后安装，再自动执行首次自检；`--check-only`只检测。Playwright与Blender不随核心安装。Windows启动器/安装仍未实机验证，详见[完整安装说明](references/installation.zh.md)。
 
-核心工具在本地运行。补图、浏览器捕获和 Blender 检查需要 Agent 可用的相应工具。
-
-| 项目 | 要求 |
+| 能力 | 依赖 |
 |---|---|
-| Agent 客户端 | 本地已在 macOS Codex 使用；指令不绑定宿主专有接口，但本次未重新完成 Claude Code 运行验收。 |
-| 核心运行环境 | Python 3.10 或更高版本、Pillow 和 NumPy。 |
-| 预览与捕获 | 现代浏览器；自动捕获还需要 Node.js 和 Playwright。 |
-| 可选功能 | 补充视角使用宿主生图工具；导入验证使用 Blender。 |
+| 核心建模、检查、GLB导出 | Python 3.10+、Pillow≥9、NumPy≥1.24 |
+| 人工查看模型 | 兼容浏览器和本地HTTP服务 |
+| 可选自动截图、浏览器测试 | Node.js≥18、Playwright和兼容浏览器 |
+| 可选Blender实际导入验证 | Blender |
 
-本次未完成 Windows 实机运行验证。浏览器和 Blender 的可执行路径需按目标机器指定；macOS 路径示例不是跨平台默认值。
+车辆工具和模板已内置，无须单独安装vehicle-configurator。
 
-已有车辆页面适配还需要独立的 vehicle-configurator skill，通用模型不依赖它。
+让Agent安装完整Skill并确认能加载SKILL.md，先运行只读诊断；只有核心依赖缺失时，经你同意再准备隔离环境。Playwright和Blender按需配置。
 
-### 快速安装
+```sh
+# macOS，在安装目录执行
+python3 -X utf8 scripts/environment.py doctor
+python3 -X utf8 scripts/environment.py first-use --out /path/to/first-use-new
+```
 
-向 Agent 发送：
+```powershell
+# Windows PowerShell，有Python启动器时
+py -3 -X utf8 scripts/environment.py doctor
+py -3 -X utf8 scripts/environment.py first-use --out C:\path\to\first-use-new
+```
 
-> 帮我安装这个 Skill：https://github.com/chemny/image-to-3d。先检查基础环境，缺什么帮我补齐，再安装并检查能不能加载使用。其他功能等我需要时再配置。
+首次验证只在新目录生成合成预览和GLB，不修改用户模型、不安装依赖；这一步不需要Playwright或Blender。[完整安装说明](references/installation.zh.md)包含隔离环境、人工预览、可选能力配置和失败处理。
 
-Agent 应说明实际验证了什么、还缺哪些配置，不能仅凭复制文件就宣布可用。
+Mac已有实际运行证据；Windows已补检测逻辑及路径/参数模拟回归，尚未实机验证。Claude Code未做本轮客户端实测，不能将CLI通过当作Agent加载或视觉验收通过。
 
 ## 快速开始
 

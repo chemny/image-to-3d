@@ -1,0 +1,9 @@
+{
+  "acceptance": "user_accepted_first_edition",
+  "asset_sha256": "c9f092ea4cc893cf4fab18416c81051ac2b2f40eb3dacf3df9ae2192cf23d492",
+  "case_artifact": "zeekr-9x-first-edition",
+  "limitations": [
+    "reference fidelity not quantitatively certified",
+    "interiors and mechanisms inferred"
+  ]
+}

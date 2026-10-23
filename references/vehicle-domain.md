@@ -8,7 +8,7 @@
 4. 门、机盖、尾门有实际分件和随动清单；B/C 柱固定，内部有厚度、地板、轮罩、内衬和舱室隔断；隐藏结构标推断。
 5. 检查闭合、中间、展开、反向以及相邻件关闭状态；检查四轮所有轮毂变体、实际灯面、材质串色。
 6. 车辆配置器复用已确认模板。页面适配只负责选项、相机和统一动作状态，不重新定义几何真值。
-7. 项目级验收沿用既有 vehicle-configurator 的功能/造型/性能分项和首版授权；新核心检查不覆盖或伪造原验收结果。
+7. 项目级验收复用内置车辆模块的功能/造型/性能证据，仍遵守主流程授权；新核心检查不覆盖或伪造原验收结果。
 
 已实现Spec构建与动作适配；车型实际几何与造型质量由该任务的建模和审查确定，不能把接口通过当车型还原通过。
 
@@ -16,7 +16,7 @@
 
 Spec 的 vehicle_bindings 声明 paint（实际材质ID）、wheels（三组实际部件ID）、lights（三组实际发光材质，对应锁定页接口）、actions（left/right/hood/trunk各自的动作ID）。动作通过真实pivot组执行；玻璃/饰件作为子节点随动，固定柱不得挂进车门。
 
-`project.py build --project TASK --vehicle-config VEHICLE.json --vehicle-skill VEHICLE_SKILL --out NEW_WEB` 使用该skill的locked_configurator构建，要求对应参考资源齐全及partBindings一致，拒绝假轮毂/假灯/缺失动作。该页面的HTML/CSS/app.js来自锁定模板，不由模型代码重建。校对捕获先用同Spec的generic-review，产品页另做布局/功能回归，不能把两种测试混为一谈。
+`project.py build --project TASK --vehicle-config VEHICLE.json --out NEW_WEB` 默认使用内置 domains/vehicle/scripts/locked_configurator.py 构建（--vehicle-skill 只作显式外部兼容），要求对应参考资源齐全及partBindings一致，拒绝假轮毂/假灯/缺失动作。该页面的HTML/CSS/app.js来自锁定模板，不由模型代码重建。校对捕获先用同Spec的generic-review，产品页另做布局/功能回归，不能把两种测试混为一谈。
 
 完整字段/函数见integration-contract-v2.md；检查材料串色、四轮variant可见性、实际灯面发光、动作终点/关闭复位、弹窗事件隔离、保存恢复与资源身份。旧车辆工具产生的门禁/结构报告作为core对应阶段的artifact，不启动第二套新项目流程状态。旧GLB修复任务继续原路，不自动迁移或覆盖。
 

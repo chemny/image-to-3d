@@ -2,7 +2,7 @@
 name: image-to-3d
 description: 当用户需要根据参考图建模或修复已有模型时使用；从物体参考图分析结构、建立模型Spec、构建和校准可交互Three.js模型；提供多视角参考、曲面建模、装配与渲染对照的完整执行流程。车辆通过专用领域规则接入已确认配置器。
 metadata:
-  version: "0.12.5"
+  version: "0.13.2"
 ---
 # Image to 3D
 
@@ -78,6 +78,7 @@ metadata:
 
 ## 领域、协作和交付
 
+- 车辆工具与模板：读 [内置车辆模块](domains/vehicle/GUIDE.md)，通过 scripts/vehicle.py 调用原生资产工具；图片建模继续唯一主流程，旧验收报告作为证据复用，不复制审批状态。
 - 车辆：读 [车辆领域](references/vehicle-domain.md)，保留已确认页面框架，模型经纯Three适配器接入；通用校对页不能替换产品配置器。
 - 多Agent：按 [协作契约](references/collaboration.md) 冻结共享Spec/边界、精确分配写入文件并用check-all核对实际变化；宿主没有并行接口时顺序执行。
 - 交付：审查通过后 `project.py export` 输出同版本模型/页面/资源与证据；拒绝陈旧或诊断包。指定统一案例页的项目按 [展示交付与案例接入](references/presentation-delivery.md) 登记已验收版本，检查统一布局、操作和选配；导出不等于完成案例接入。外部发布另需用户指令。
@@ -86,4 +87,6 @@ metadata:
 
 ## 环境
 
-Python 3.10+；图片工具用 Pillow。Three.js及其许可随skill带入。真实捕获支持已安装Playwright和浏览器（传路径），也可用宿主浏览器工具记录同等证据；不自动安装依赖。车辆锁定页面由同级 vehicle-configurator 提供，可用 --vehicle-skill 指定位置。已有GLB/Blender资产修复继续使用该领域skill；不要求为新流程推倒有效资产。
+首次安装或跨机器恢复先读 [安装与首次使用](references/installation.zh.md)：install.command / install.cmd进入一键流程，--check-only只读检查；缺Python或核心库先列方案，经确认才安装，核心库使用Skill外的受管venv。继续复用environment.py doctor与first-use，不复制检测流程。核心只需Python/Pillow/NumPy；Playwright/Node和Blender按--capability分别配置和实测，不自动安装。宿主加载、核心通过、人工预览及可选能力各自报告，Windows模拟检查不当作实机验证。
+
+Python 3.10+；图片工具用 Pillow。Three.js及其许可随skill带入。真实捕获支持已安装Playwright和浏览器（传路径），也可用宿主浏览器工具记录同等证据；不自动安装依赖。车辆锁定页面及旧GLB整理工具由内置 domains/vehicle 模块提供，不再要求安装独立 vehicle-configurator；--vehicle-skill 仅供显式兼容外部模板。已有GLB/Blender资产修复使用内置车辆模块；不要求为新流程推倒有效资产。

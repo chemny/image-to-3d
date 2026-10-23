@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "case": "ZEEKR 9X image-based Three.js configurator",
+  "distribution": "optional local case archive; public repository guide and provenance only",
+  "asset_redistribution_authorization": "not_established",
+  "original_images": 5,
+  "approved_reference_boards": 2,
+  "reference_priority": "user-supplied original images govern; generated boards supplement and include inferred views",
+  "acceptance": "user_accepted_case_final",
+  "whole_car_visual_fidelity": "not_passed",
+  "final_model_sha256": "37d217dd40291b98042263169bd2bbaa79e311a225a29a45b4ade0722d0915cb",
+  "files": [
+    {
+      "path": "original/user-supplied/front-quarter.png",
+      "sha256": "5a95e28976bf55aa6852f0804f6e97ecfd715dc0ee47bc4eaae93e4e7d64a5e9",
+      "bytes": 912844,
+      "origin": "user_supplied"
+    },
+    {
+      "path": "original/user-supplied/front.png",
+      "sha256": "b0b7047604f6551b96a4dbdd142f501ccc89a7631988bcd2b79717cdb8a4d03f",
+      "bytes": 512253,
+      "origin": "user_supplied"
+    },
+    {
+      "path": "original/user-supplied/rear.png",
+      "sha256": "b347d1653f686d29817a18874ff34dd3f5202d7a5a2d707ff99ad76f17f5ba63",
+      "bytes": 434865,
+      "origin": "user_supplied"
+    },
+    {
+      "path": "original/user-supplied/side.png",
+      "sha256": "e96bc964bfbea18c6efbc4139602800934a5acc67fce9da8616d307e7739e770",
+      "bytes": 874032,
+      "origin": "user_supplied"
+    },
+    {
+      "path": "original/user-supplied/upper-quarter.png",
+      "sha256": "46568562c4420fb30d1a089e99298185ddb327e8eff02788cdd242028f780234",
+      "bytes": 1102001,
+      "origin": "user_supplied"
+    },
+    {
+      "path": "original/approved-reference/details-approval.json",
+      "sha256": "107cafb4e57b9c6dd5050b0e33158553e708a651686b78e0e5e6f68e420e7196",
+      "bytes": 1863,
+      "origin": "generated_approved_reference"
+    },
+    {
+      "path": "original/approved-reference/details-approved.png",
+      "sha256": "82fa65ffb66b174b81b1615361df5bfa75856fa22430080b43e7228ec69a34b7",
+      "bytes": 1933294,
+      "origin": "generated_approved_reference"
+    },
+    {
+      "path": "original/approved-reference/exterior-approval.json",
+      "sha256": "dfbbea9fd063df19eb8a0ae3b40176b67867a1d40e07cb1fae41f62a71a8121f",
+      "bytes": 3959,
+      "origin": "generated_approved_reference"
+    },
+    {
+      "path": "original/approved-reference/exterior-approved.png",
+      "sha256": "156a0557f613c4d2ff41c7d9c11829a5f5158c3143e57c6c0b8f4473859d7c48",
+      "bytes": 1701303,
+      "origin": "generated_approved_reference"
+    },
+    {
+      "path": "final/FINAL_ACCEPTANCE.json",
+      "sha256": "6ff14fc2e60478acf05b4f05542e333741f3c52259e55c049a2b6fa31b1a5e15",
+      "bytes": 1410,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/app.js",
+      "sha256": "890148bc180904ce76f9c045cc183669a273acea3667d70b56bfaf2ae443b2b0",
+      "bytes": 20282,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/assets/front-quarter.png",
+      "sha256": "5a95e28976bf55aa6852f0804f6e97ecfd715dc0ee47bc4eaae93e4e7d64a5e9",
+      "bytes": 912844,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/assets/front.png",
+      "sha256": "b0b7047604f6551b96a4dbdd142f501ccc89a7631988bcd2b79717cdb8a4d03f",
+      "bytes": 512253,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/assets/rear.png",
+      "sha256": "b347d1653f686d29817a18874ff34dd3f5202d7a5a2d707ff99ad76f17f5ba63",
+      "bytes": 434865,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/assets/side.png",
+      "sha256": "e96bc964bfbea18c6efbc4139602800934a5acc67fce9da8616d307e7739e770",
+      "bytes": 874032,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/assets/upper-quarter.png",
+      "sha256": "46568562c4420fb30d1a089e99298185ddb327e8eff02788cdd242028f780234",
+      "bytes": 1102001,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/build_glb.py",
+      "sha256": "c9db950207c1ad6cbc9f15004fb2ca68015b280379b0e389748741bf271a61ce",
+      "bytes": 3600,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/door-build.js",
+      "sha256": "0b66add7bff0586f1b641a0b91ea68c867122c1784c567f05e31cca050bb62c2",
+      "bytes": 5573,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/index.html",
+      "sha256": "32b040fddf48b102922d2f6c3afd704d5cc114699a7171d6a285c4f37574de3f",
+      "bytes": 3517,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/interaction.js",
+      "sha256": "244676cda843fc1eb4f0ae7b8a19c16e9ea98f11ce52a9bb829bdbdfa4b65c53",
+      "bytes": 6311,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/model-manifest.json",
+      "sha256": "837b27829250e163596c55aff870eec3a48ca8d4bdc3cc58eb0a1578a5e500c1",
+      "bytes": 2584,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/model.glb",
+      "sha256": "37d217dd40291b98042263169bd2bbaa79e311a225a29a45b4ade0722d0915cb",
+      "bytes": 27339560,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/model.js",
+      "sha256": "bce927c68b8873edb07520a278e0db2ba92c201d7bfcaf6b6829cc5a82fa421d",
+      "bytes": 29301,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/reference-priority.json",
+      "sha256": "ad0ff5a478812b59c261376d7e8fabf8d5c9c6b7348b0d8ad1b196970209a1af",
+      "bytes": 345,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/references/details-approval.json",
+      "sha256": "107cafb4e57b9c6dd5050b0e33158553e708a651686b78e0e5e6f68e420e7196",
+      "bytes": 1863,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/references/details-approved.png",
+      "sha256": "82fa65ffb66b174b81b1615361df5bfa75856fa22430080b43e7228ec69a34b7",
+      "bytes": 1933294,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/references/exterior-approval.json",
+      "sha256": "dfbbea9fd063df19eb8a0ae3b40176b67867a1d40e07cb1fae41f62a71a8121f",
+      "bytes": 3959,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/references/exterior-approved.png",
+      "sha256": "156a0557f613c4d2ff41c7d9c11829a5f5158c3143e57c6c0b8f4473859d7c48",
+      "bytes": 1701303,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/sources.json",
+      "sha256": "b3d7ff76a8cef0591eed2080322258c26e96d61b95fca654afb9adcd5584fa21",
+      "bytes": 1120,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/style.css",
+      "sha256": "359fb59dff8196d01fdaabd53befcff2f3dced7c4e9dadea48034620f67d53bc",
+      "bytes": 9099,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/vendor/BufferGeometryUtils.js",
+      "sha256": "fda7e946b8e0b5ab39b779206589e7a1079a22eb24efb89d7223e03fdfb1f751",
+      "bytes": 35539,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/vendor/GLTFLoader.js",
+      "sha256": "adbbafe8ce40416525b6be0ee5cac0d3782482bcf0122c8ca8ec1ffa77d3440b",
+      "bytes": 114732,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/vendor/LICENSE",
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+      "bytes": 1081,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/vendor/OrbitControls.js",
+      "sha256": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c",
+      "bytes": 38703,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/vendor/three.core.js",
+      "sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20",
+      "bytes": 1403455,
+      "origin": "accepted_case_final"
+    },
+    {
+      "path": "final/vendor/three.module.js",
+      "sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a",
+      "bytes": 603113,
+      "origin": "accepted_case_final"
+    }
+  ],
+  "omitted": [
+    "intermediate iterations",
+    "repair plan and review drafts",
+    "temporary screenshots",
+    "local absolute paths"
+  ]
+}

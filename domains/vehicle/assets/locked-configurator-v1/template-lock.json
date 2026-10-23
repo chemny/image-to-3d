@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "template_id": "zeekr9x-layout-v1.1",
+  "baseline": "examples/zeekr-9x/final",
+  "immutable_files": {
+    "index.html": "c1c3237121ab87ead873f09ab425e5927005b42b11ba8f3ca72d35d500c6f0b5",
+    "style.css": "359fb59dff8196d01fdaabd53befcff2f3dced7c4e9dadea48034620f67d53bc",
+    "app.js": "c83ec24a38c1986d17d5edc83b8375f6aed4d1076da5fef16a92b9db53c413ea",
+    "vendor/three.module.js": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a",
+    "vendor/LICENSE": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+    "vendor/three.core.js": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20",
+    "vendor/GLTFLoader.js": "adbbafe8ce40416525b6be0ee5cac0d3782482bcf0122c8ca8ec1ffa77d3440b",
+    "vendor/BufferGeometryUtils.js": "fda7e946b8e0b5ab39b779206589e7a1079a22eb24efb89d7223e03fdfb1f751",
+    "vendor/OrbitControls.js": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c"
+  },
+  "allowed_case_files": [
+    "vehicle.json",
+    "model.js",
+    "model.glb",
+    "references/"
+  ],
+  "approval_policy": "UI structure, styles and controller changes require explicit user approval and new template version; never regenerate hashes to bypass failure.",
+  "change_note": "User-authorized interaction repair: fixed orbit center, isolated reference dialog, pointer gesture classification. HTML/CSS unchanged."
+}

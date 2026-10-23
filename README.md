@@ -28,34 +28,40 @@ AI-retouched exhibition illustration of six models, also used on the personal we
 | Lightweight delivery | Load full geometry once, deduplicate resources and losslessly compress display data; report asset budgets without automatic decimation. |
 | Asset delivery | Export GLB and preserve sources and review evidence; optionally check actual Blender imports. |
 
-Version 0.12.5 adds [version lifecycle management](references/version-lifecycle.md): dependency-aware cleanup previews, recoverable quarantine, explicit entry retirement and separately approved permanent deletion. [Runtime guards](references/runtime-guards.md) check recorded temporal stability, normalization and world anchors, declared release dependencies, and conflict-safe scoped rollback previews. These tools do not automatically capture a browser, discover every dependency, modify a registry or publish.
+Version 0.13.2 includes the vehicle module described below and retains [version lifecycle management](references/version-lifecycle.md): dependency-aware cleanup previews, recoverable quarantine, explicit entry retirement and separately approved permanent deletion. [Runtime guards](references/runtime-guards.md) check recorded temporal stability, normalization and world anchors, declared release dependencies, and conflict-safe scoped rollback previews. These tools do not automatically capture a browser, discover every dependency, modify a registry or publish.
 
-The local macOS regression suite passed 712 tests, including 36 runtime-guard tests; this is software validation, not a visual reconstruction benchmark or fresh Windows/Claude Code certification.
+The local macOS regression suite passed 782 tests, including the vehicle-module migration checks and 36 runtime-guard tests; this is software validation, not a visual reconstruction benchmark or fresh Windows/Claude Code certification.
 
 ## Installation
 
-### Requirements
+Start with **install.command (macOS)** or **install.cmd (Windows)**. They diagnose first, ask before installing missing required dependencies, then run the existing first-use check. Add `--check-only` for read-only diagnosis. No optional tools are installed. Windows launcher/installation still lacks real-machine validation; see the [setup guide](references/installation.md).
 
-The core runs locally. Additional image generation and browser or Blender checks require tools available to your Agent.
-
-| Item | Requirement |
+| Capability | Requirements |
 |---|---|
-| Agent client | Tested locally with Codex on macOS. Claude Code can use the host-neutral instructions, but has not been freshly runtime-tested for this release. |
-| Core runtime | Python 3.10 or later, Pillow and NumPy. |
-| Preview and capture | A modern browser; automated capture also needs Node.js and Playwright. |
-| Optional features | Host image generation for supplemental views; Blender for import verification. |
+| Core modeling, checks and GLB export | Python 3.10+, Pillow >=9, NumPy >=1.24 |
+| Manual model viewing | A compatible browser and local HTTP server |
+| Optional automatic screenshots/browser tests | Node.js >=18, Playwright and a compatible browser |
+| Optional Blender import verification | Blender |
 
-Windows has not been runtime-tested for this release. Browser and Blender executable paths must be supplied for the target machine; macOS path examples are not portable defaults.
+Vehicle tools/templates are bundled; no separate vehicle-configurator Skill is required.
 
-The existing vehicle-page adapter additionally requires the separate vehicle-configurator skill; generic models do not.
+Ask your Agent to install the complete Skill, verify it can load SKILL.md, then run read-only diagnosis. Prepare only missing core dependencies with your authorization; configure automation or Blender when requested.
 
-### Quick Installation
+```sh
+# macOS, from the installed Skill directory
+python3 -X utf8 scripts/environment.py doctor
+python3 -X utf8 scripts/environment.py first-use --out /path/to/first-use-new
+```
 
-Ask your Agent:
+```powershell
+# Windows PowerShell, with an available Python launcher
+py -3 -X utf8 scripts/environment.py doctor
+py -3 -X utf8 scripts/environment.py first-use --out C:\path\to\first-use-new
+```
 
-> Install this Skill: https://github.com/chemny/image-to-3d. Check the basic environment, prepare missing core requirements, then install and verify that the Skill can be loaded. Set up optional features when I need them.
+First-use creates a synthetic preview and GLB in a new directory; it does not modify user models or install dependencies. Playwright/Blender are not required for this core check. [Full installation guide](references/installation.md) includes isolated environments, manual preview, optional configuration and failure handling.
 
-The Agent should report what was verified and any remaining setup, rather than treating a file copy as successful operation.
+macOS has execution evidence. Windows detection and argument handling have simulated tests, but no real Windows run is claimed. Claude Code has not been freshly runtime-tested. Skill discovery and visual quality require separate confirmation.
 
 ## Quick Start
 

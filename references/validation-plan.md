@@ -79,3 +79,25 @@ v0.3开发回归增加 car-wheel / bicycle / motorcycle / toy 四个明确设计
 `PYTHONPATH=scripts:tests python3 -m unittest test_runtime_guards -v` 验证时序跳变/层间距、局部修复的消费端尺度、声明依赖身份/包缺项、共享注册局部回退与冲突拒绝。所有文件操作均在临时目录；CLI只读，回退只返回投影。样本覆盖移动相机但世界基准不变、状态分组、缺序列/重复时间/NaN、错误accessor边界、超界附件、重复缩放、保护锚点、模型未变而共享脚本变化、漏打包未跟踪/动态模块、路径逃逸与符号链接。
 
 这些测试验证数值和记录校验，不证明自动识别任意闪烁、完整发现JS依赖或真实生产回退成功。实际任务继续用既有浏览器捕获和采用审查，对加载完成、固定/移动机位、场景切换、开合/复位做视觉和功能复测；本轮不重写模型、不重复已有几何/生命周期测试。字段与命令见 [运行时校验](runtime-guards.md)。
+
+## 内置车辆模块迁移回归
+
+`PYTHONPATH=scripts:tests python -m unittest test_vehicle_module -v`：把完整Skill复制到含空格/中文的新位置并设置空HOME，以真实子进程检查工具入口和主流程锁定模板构建，不依赖同级旧Skill；核对模板/Three.js锁文件哈希、损坏GLB拒绝、模板被改后拒绝，以及原车辆工具回归。合成夹具明确不代表真实车辆还原或新车型验收。
+
+原模块离线工具回归可单独运行 `python -m unittest discover -s domains/vehicle/scripts -p 'test_*.py' -v`；与顶层模块在独立进程运行，避免两个project.py的导入污染。Windows未实机验证，空HOME/路径测试不等于跨OS认证；迁移后不再将旧独立Skill作为测试依赖。
+
+显式浏览器迁移夹具：`PYTHONPATH=scripts:tests python tests/vehicle_module_browser.py --node NODE --playwright PLAYWRIGHT_MODULE --browser CHROME --out NEW_RESULT.json`。在临时目录生成合成页面，实际检查WebGL绘制、六色/三轮毂/三场景、四组开合、恢复、参考图库和窄屏；不使用或修改现有模型，不表示真实车型还原通过。
+
+
+## 安装与首次使用回归
+
+`PYTHONPATH=scripts:tests python3 -B -m unittest test_environment -v` 验证必需库/解释器失败、可选依赖隔离、显式能力请求、只读 doctor、完整包和车辆锁定模板摘要、禁止覆盖既有/Skill 内输出、中文及空格目录、失败报告保留、不经 shell 执行和 UTF-8 子进程。Windows 路径与参数测试仅为跨平台模拟，不代表 Windows 实机通过。
+
+按 [安装说明](installation.zh.md) 在新目录分别运行核心 first-use、显式 automation、显式 blender：后两项只有实际 WebGL 捕获/Blender 导入成功才报告通过。默认核心测试无需 Node、Playwright 或 Blender；测试不安装工具、不修改案例。macOS 实跑证据与 Windows 模拟分开记录；宿主 Agent 加载、人工视觉和交互仍单独验收。
+
+
+## 一键安装入口回归
+
+`PYTHONPATH=scripts:tests python3 -B -m unittest test_setup_skill test_environment -v`：只读模式零写入，明确确认/拒绝/非终端保护，新隔离环境与已有受管环境，未知/损坏/链接环境拒绝，必需依赖安装命令隔离及失败保留，中文/空格参数，任选能力不隐式安装，真实Mac启动器与核心first-use。安装分支使用临时目录和模拟命令，不联网安装。
+
+Windows数据目录/参数/解释器布局在其他平台模拟；CMD解析、winget和实际Windows运行未验证。Mac专用启动测试在其他平台跳过。Mac无Python引导/Homebrew安装也不因核心环境通过而被追认。不能用脚本文本检查替代平台实机安装测试。
